@@ -1,11 +1,14 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { Container } from './style';
+import { Container } from './style'
 
 function Button({ children }) {
-    return (
-        <Container>{children}</Container>
-    )
+  return <Container>{children}</Container>
 }
 
-export default Button;
+Button.propTypes = {
+  children: PropTypes.object,
+}
+
+export default Button

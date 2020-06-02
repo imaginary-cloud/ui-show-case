@@ -1,11 +1,14 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { Container } from './styles';
+import { Container } from './style'
 
-function Button({ children }) {
-    return (
-        <Container>{children}</Container>
-    )
+function Tooltip({ children }) {
+  return <Container>{children}</Container>
 }
 
-export default Button;
+Tooltip.propTypes = {
+  children: PropTypes.object,
+}
+
+export default Tooltip

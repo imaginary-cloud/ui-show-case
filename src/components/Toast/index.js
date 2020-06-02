@@ -1,11 +1,14 @@
-import React from 'react';
+import React from 'react'
+import PropTypes from 'prop-types'
 
-import { Container } from './styles';
+import { Container } from './style'
 
-function Button({ children }) {
-    return (
-        <Container>{children}</Container>
-    )
+function Toast({ children }) {
+  return <Container>{children}</Container>
 }
 
-export default Button;
+Toast.propTypes = {
+  children: PropTypes.object,
+}
+
+export default Toast

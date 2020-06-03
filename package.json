@@ -21,7 +21,8 @@
     "build-storybook": "build-storybook -s public",
     "lint": "eslint ./ --ignore-path .gitignore",
     "lint:fix": "yarn lint -- --fix",
-    "format": "prettier --write \"{,!(node_modules)/**/}*.js\""
+    "format": "prettier --write \"{,!(node_modules)/**/}*.js\"",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "eslintConfig": {
     "extends": "@imaginary-cloud/react"
@@ -49,6 +50,7 @@
     "@storybook/addons": "^5.3.19",
     "@storybook/preset-create-react-app": "^3.0.0",
     "@storybook/react": "^5.3.19",
+    "@storybook/storybook-deployer": "^2.8.6",
     "babel-loader": "^8.1.0",
     "eslint-config-airbnb": "^18.1.0",
     "eslint-config-prettier": "^6.10.1",

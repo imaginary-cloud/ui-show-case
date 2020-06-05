@@ -18,7 +18,7 @@ export const WithLabel = () => {
       label={text('label', 'Checkbox With Label')}
       onChange={() => setIsChecked(prevState => !prevState)}
       isChecked={boolean('isChecked', isChecked)}
-      labelStyle={{ color: '#fff' }}
+      labelStyle={{ color: '#047AFE' }}
     />
   )
 }

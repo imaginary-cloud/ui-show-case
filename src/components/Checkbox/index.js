@@ -1,14 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { Container } from './style'
+import { Container, Input, Label } from './style'
 
-function Checkbox({ children }) {
-  return <Container>{children}</Container>
+const getRandomId = () => Math.random().toString(36)
+
+function Checkbox({ onChange, id = getRandomId(), label, labelStyle }) {
+  return (
+    <Container>
+      <Input id={id} onChange={onChange} type="checkbox" />
+      <Label htmlFor={id} style={labelStyle}>
+        {label}
+      </Label>
+    </Container>
+  )
 }
 
 Checkbox.propTypes = {
-  children: PropTypes.object,
+  onChange: PropTypes.func,
+  id: PropTypes.string,
+  label: PropTypes.string,
+  labelStyle: PropTypes.object,
 }
 
 export default Checkbox

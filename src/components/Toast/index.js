@@ -1,14 +1,4 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import withToastProvider from './withToastProvider'
+import useToast from './useToast'
 
-import { Container } from './style'
-
-function Toast({ children }) {
-  return <Container>{children}</Container>
-}
-
-Toast.propTypes = {
-  children: PropTypes.object,
-}
-
-export default Toast
+export { withToastProvider, useToast }

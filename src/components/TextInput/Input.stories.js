@@ -6,7 +6,7 @@ import Container from '../Container'
 import Input from './index'
 
 export default {
-  title: 'Input',
+  title: 'Text Input',
 }
 
 export const Empty = () => (

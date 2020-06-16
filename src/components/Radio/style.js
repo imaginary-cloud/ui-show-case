@@ -21,7 +21,7 @@ export const Input = styled.input`
       left: 0;
 
       border-radius: 50%;
-      border: 1px solid #6f686a;
+      border: 1px solid var(--primary);
     }
 
     &::after {
@@ -37,13 +37,13 @@ export const Input = styled.input`
 
   &:checked {
     + ${Label}::after {
-      background: red;
+      background: var(--accent-color);
     }
   }
 
   &:focus {
     + label::before {
-      box-shadow: 0 0px 8px red;
+      box-shadow: 0 0px 8px var(--accent-color);
     }
   }
 `

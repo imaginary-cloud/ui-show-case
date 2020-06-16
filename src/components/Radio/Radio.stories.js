@@ -40,7 +40,7 @@ export const WithLabel = () => {
           id={radioItem.id}
           isChecked={radioItem.id === checkedOption}
           onChange={() => setCheckedOption(radioItem.id)}
-          labelStyle={{ color: '#047AFE' }}
+          labelStyle={{ color: 'var(--accent-color)' }}
         />
       ))}
     </fieldset>

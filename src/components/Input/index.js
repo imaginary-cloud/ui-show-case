@@ -34,9 +34,9 @@ function Input({
           placeholder=" "
         />
         <Label htmlFor={id}>{label}</Label>
-        <Bar />
+        <Bar hasError={hasError} />
       </FormFieldControl>
-      <Help color={hasError && 'var(--error)'}>{helpText}</Help>
+      <Help hasError={hasError}>{helpText}</Help>
     </FormField>
   )
 }

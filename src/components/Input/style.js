@@ -30,8 +30,13 @@ export const Label = styled.label`
   width: 100%;
 `
 
-export const Bar = styled.div`
-  border-bottom: 2px solid var(--primary);
+// adding custom props to native components
+// https://spectrum.chat/styled-components/general/how-to-pass-custom-props-to-native-elements~69a20d04-1a8a-4fe4-927f-225dae003fd3
+export const Bar = styled.div.attrs(({ hasError }) => ({
+  hasError,
+}))`
+  border-bottom: 2px solid
+    ${({ hasError, theme }) => (hasError ? theme.error : theme.primary)};
   bottom: 0;
   content: '';
   display: block;
@@ -48,7 +53,7 @@ export const InputItem = styled.input`
   appearance: none;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid var(--primary);
+  border-bottom: 1px solid ${({ theme }) => theme.primary};
   color: #333;
   display: block;
   font-size: 1.2rem;
@@ -70,24 +75,24 @@ export const InputItem = styled.input`
     ~ ${Label} {
       font-size: 0.75rem;
       transform: translateY(-14px);
-      color: var(--accent-color);
+      color: ${({ theme }) => theme.accentColor};
     }
 
     ~ ${Bar} {
       border-bottom: 2px solid
-        ${({ hasError }) => (hasError ? 'var(--accent-color)' : 'var(--error)')};
+        ${({ theme, hasError }) => (hasError ? theme.error : theme.primary)};
       transform: scaleX(150);
     }
   }
 
   &:focus {
     ~ ${Label} {
-      color: var(--accent-color);
+      color: ${({ theme }) => theme.accentColor};
       font-size: 0.75rem;
       transform: translateY(-14px);
     }
     ~ ${Bar} {
-      border-bottom: 2px solid var(--accent-color);
+      border-bottom: 2px solid ${({ theme }) => theme.accentColor};
       transform: scaleX(150);
     }
   }
@@ -99,8 +104,10 @@ export const InputItem = styled.input`
   }
 `
 
-export const Help = styled.span`
+export const Help = styled.span.attrs(({ hasError }) => ({
+  hasError,
+}))`
   margin: 8px;
   display: block;
-  color: ${({ color }) => color};
+  color: ${({ theme, hasError }) => (hasError ? theme.error : theme.primary)};
 `

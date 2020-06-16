@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { withKnobs, text } from '@storybook/addon-knobs'
+import { text } from '@storybook/addon-knobs'
 
 import Container from '../Container'
 
@@ -7,7 +7,6 @@ import Input from './index'
 
 export default {
   title: 'Input',
-  decorators: [withKnobs],
 }
 
 export const Empty = () => (
@@ -44,7 +43,7 @@ export const Disabled = () => (
 )
 
 export const Error = () => {
-  const [value, setValue] = useState('Hanna')
+  const [value, setValue] = useState('Error')
   return (
     <Container>
       <Input
@@ -53,7 +52,7 @@ export const Error = () => {
         onChange={event => setValue(event.target.value)}
         id="error"
         type="text"
-        helpText="Error message"
+        helpText={text('error message', 'Error message')}
         hasError
       />
     </Container>

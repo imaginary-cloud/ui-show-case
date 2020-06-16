@@ -1,28 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-
 import { withKnobs, text, color } from '@storybook/addon-knobs'
 
+import Container from '../Container'
+
 import Tooltip from './index'
-
-function Container({ children }) {
-  return (
-    <div
-      style={{
-        height: '100px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      {children}
-    </div>
-  )
-}
-
-Container.propTypes = {
-  children: PropTypes.object.isRequired,
-}
 
 export default {
   title: 'Tooltip',

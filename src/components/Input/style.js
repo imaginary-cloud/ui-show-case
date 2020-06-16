@@ -6,6 +6,9 @@ export const FormField = styled.div`
   display: block;
   margin-bottom: 16px;
   width: calc(100% - 24px);
+  &:hover {
+    cursor: pointer;
+  }
 `
 
 export const FormFieldControl = styled.div`

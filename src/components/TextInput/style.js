@@ -6,21 +6,21 @@ export const FormField = styled.div`
   display: block;
   margin-bottom: 16px;
   width: calc(100% - 24px);
-  &:hover {
-    cursor: pointer;
-  }
 `
 
 export const FormFieldControl = styled.div`
-  border-radius: 8px 8px 0 0;
+  border-radius: 3px 3px 0 0;
   overflow: hidden;
   position: relative;
   width: 100%;
+  cursor: pointer;
 `
 
 export const Label = styled.label`
   font-size: 1.2rem;
-  transform: translateY(0);
+  transform: translateY(15px);
+  line-height: ${({ theme }) => theme.defaultLineHeight};
+  font-size: ${({ theme }) => theme.defaultFontSize};
 
   display: block;
   font-weight: normal;
@@ -56,19 +56,21 @@ export const InputItem = styled.input.attrs(({ hasError }) => ({
   background: transparent;
   border: 0;
   border-bottom: 1px solid ${({ theme }) => theme.primary};
-  color: #333;
+  color: ${({ theme }) => theme.primary};
   display: block;
   font-size: 1.2rem;
   margin-top: 24px;
   outline: 0;
   padding: 0 12px 10px 12px;
+  padding-top: 10px;
   width: 100%;
+  background: ${({ theme }) => theme.lightBackground};
 
   // IE 10-11
   &:-ms-input-placeholder {
     ~ ${Label} {
       font-size: 1.2rem;
-      transform: translateY(0);
+      transform: translateY(15px);
     }
   }
   // All other browsers except Edge

@@ -12,7 +12,16 @@ export const theme = {
   blue: '#BED7E4',
   accentColor: '#ED9170',
 
+  lightBackground: '#F6F4F5',
+
   error: '#EA6161',
+
+  // spacing
+  defaultPadding: '16px',
+
+  defaultLineHeight: '28px',
+
+  defaultFontSize: '14px',
 }
 
 function App() {

@@ -35,11 +35,8 @@ export const Label = styled.label`
 
 // adding custom props to native components
 // https://spectrum.chat/styled-components/general/how-to-pass-custom-props-to-native-elements~69a20d04-1a8a-4fe4-927f-225dae003fd3
-export const Bar = styled.div.attrs(({ hasError }) => ({
-  hasError,
-}))`
-  border-bottom: 2px solid
-    ${({ hasError, theme }) => (hasError ? theme.error : theme.primary)};
+export const Bar = styled.div`
+  border-bottom: 2px solid ${({ theme }) => theme.primary};
   bottom: 0;
   content: '';
   display: block;
@@ -52,7 +49,9 @@ export const Bar = styled.div.attrs(({ hasError }) => ({
   width: 1%;
 `
 
-export const InputItem = styled.input`
+export const InputItem = styled.input.attrs(({ hasError }) => ({
+  hasError,
+}))`
   appearance: none;
   background: transparent;
   border: 0;

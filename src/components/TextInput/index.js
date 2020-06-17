@@ -31,10 +31,11 @@ function Input({
           value={value}
           onChange={onChange}
           disabled={disabled}
+          hasError={hasError}
           placeholder=" "
         />
         <Label htmlFor={id}>{label}</Label>
-        <Bar hasError={hasError} />
+        <Bar />
       </FormFieldControl>
       <Help hasError={hasError}>{helpText}</Help>
     </FormField>

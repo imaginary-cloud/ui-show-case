@@ -14,30 +14,27 @@ export default {
   title: 'Dropdown',
 }
 
-export const WitLabel = () => {
-  const [value, setValue] = useState(' ')
-
-  function handleSubmit(event) {
-    console.log('---> ', value)
-    // avoid page reload
-    event.preventDefault()
-  }
+export const DropdownDefault = () => {
+  const [value, setValue] = useState('')
 
   function handleChange(selected) {
-    console.log('selected', selected)
     setValue(selected)
   }
 
   return (
-    <Container>
-      <form style={{ width: '500px' }} onSubmit={handleSubmit}>
-        <Dropdown
-          selectLabel="Pick your favorite flavor: "
-          items={INITIAL_VALUE}
-          onChange={handleChange}
-          selected={value}
-        />
-      </form>
+    <Container style={{ marginTop: '10px', height: '250px' }}>
+      <Dropdown
+        selectLabel="Which is your favorite flavor?"
+        items={INITIAL_VALUE}
+        onChange={handleChange}
+        selected={value}
+      />
     </Container>
   )
 }
+
+export const DropdownDisabled = () => (
+  <Container style={{ marginTop: '10px', height: '250px' }}>
+    <Dropdown selectLabel="Which is your favorite flavor?" disbabled />
+  </Container>
+)

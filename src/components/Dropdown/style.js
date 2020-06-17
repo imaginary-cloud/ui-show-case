@@ -16,11 +16,31 @@ const HideList = keyframes`
   }
 `
 
+export const FloatingLabel = styled.label`
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  transform: translateY(0px);
+  transition: all var(--animation-duration);
+
+  &.checked {
+    transform: translateY(-45px);
+    color: ${({ theme }) => theme.accentColor};
+  }
+`
+
 export const CurrentSelectBox = styled.div`
   position: relative;
-  box-shadow: 0 15px 30px -10px rgba(#000, 0.9);
   cursor: pointer;
   outline: none;
+
+  border-bottom: 2px solid ${({ theme }) => theme.primary};
+  min-height: 40px;
+  background-color: ${({ theme }) => theme.lightBackground};
+
+  &.checked {
+    border-bottom-color: ${({ theme }) => theme.accentColor};
+  }
 `
 
 export const BoxValue = styled.div`
@@ -32,20 +52,45 @@ export const Text = styled.p`
   width: 100%;
   margin: 0;
   padding: 15px;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.lightBackground};
 `
 
 export const Input = styled.input`
   display: none;
 
-  &:checked + ${Text} {
-    display: block;
+  &:checked {
+    + ${Text} {
+      display: block;
+    }
   }
 `
 
-export const SelectBoxList = styled.ul``
+export const SelectBoxList = styled.ul`
+  border: 1px solid ${({ theme }) => theme.primary};
+  margin-top: 10px;
 
-export const ListItem = styled.ul``
+  position: absolute;
+  width: 100%;
+  padding: 0;
+  list-style: none;
+  opacity: 0;
+  height: 150px;
+  overflow: scroll;
+  overflow-x: hidden;
+
+  /* We need to use animation with delay.
+     Otherwise the click event will not have time to run on label, because this element disapears immediately when CurrentSelectBox element loses the focus.
+     This delay will not be noticed because we set "opacity" to "0".
+     We also use "animation-fill-mode: forwards" to make the list stay hidden. */
+
+  animation-name: ${HideList};
+  animation-duration: 0.5s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: step-start;
+`
+
+export const ListItem = styled.li``
 
 export const Label = styled.label``
 
@@ -66,14 +111,22 @@ export const Arrow = styled.div`
 `
 
 export const Container = styled.div`
+  --animation-duration: 0.4s;
+
   position: relative;
   display: block;
-  width: 100%;
   margin: 0 auto;
-  font-family: 'Open Sans', 'Helvetica Neue', 'Segoe UI', 'Calibri', 'Arial',
-    sans-serif;
-  font-size: 18px;
-  color: #60666d;
+  color: ${({ theme }) => theme.primary};
+  width: 100%;
+
+  &.disbabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    ${CurrentSelectBox} {
+      pointer-events: none;
+    }
+  }
 
   @media (min-width: 768px) {
     width: 70%;
@@ -93,7 +146,6 @@ export const Container = styled.div`
         opacity: 1;
 
         /* We have to set "animation-name: none;" to make the list visible (read below how it works) */
-
         animation-name: none;
 
         ${Label} {
@@ -107,35 +159,16 @@ export const Container = styled.div`
     }
   }
 
-  ${SelectBoxList} {
-    position: absolute;
-    width: 100%;
-    padding: 0;
-    list-style: none;
-    opacity: 0;
-
-    /* We need to use animation with delay.
-     Otherwise the click event will not have time to run on label, because this element disapears immediately when CurrentSelectBox element loses the focus.
-     This delay will not be noticed because we set "opacity" to "0".
-     We also use "animation-fill-mode: forwards" to make the list stay hidden. */
-
-    animation-name: ${HideList};
-    animation-duration: 0.5s;
-    animation-delay: 0.5s;
-    animation-fill-mode: forwards;
-    animation-timing-function: step-start;
-    box-shadow: 0 15px 30px -10px rgba(#000, 0.9);
-  }
-
   ${Label} {
     display: block;
     padding: 15px;
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.lightBackground};
+    transition: var(--animation-duration) all;
 
     &:hover,
     &:focus {
-      color: #546c84;
-      background-color: #fbfbfb;
+      color: ${({ theme }) => theme.primary};
+      background-color: ${({ theme }) => theme.hoverColor};
     }
   }
 `

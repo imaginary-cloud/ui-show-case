@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function Container({ children }) {
+function Container({ children, style }) {
   return (
     <div
       style={{
@@ -11,6 +11,7 @@ function Container({ children }) {
         alignItems: 'center',
         justifyContent: 'center',
         background: '#fff',
+        ...style,
       }}
     >
       {children}
@@ -20,6 +21,7 @@ function Container({ children }) {
 
 Container.propTypes = {
   children: PropTypes.object.isRequired,
+  style: PropTypes.object,
 }
 
 export default Container

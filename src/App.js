@@ -18,10 +18,10 @@ export const theme = {
 
   // spacing
   defaultPadding: '16px',
-
   defaultLineHeight: '28px',
-
   defaultFontSize: '14px',
+
+  hoverColor: '#E89070;',
 }
 
 function App() {

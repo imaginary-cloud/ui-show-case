@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 
 import {
@@ -12,12 +12,30 @@ import {
   Label,
   Arrow,
   Input,
+  HelpMsg,
 } from './style'
 
-function Dropdown({ items, selectLabel, onChange, selected, disbabled }) {
+function Dropdown({
+  items,
+  selectLabel,
+  onChange,
+  selected,
+  disbabled,
+  errorMsg,
+}) {
+  const [hideError, setHideError] = useState(true)
+
   return (
     <Container className={disbabled && 'disbabled'}>
-      <CurrentSelectBox tabIndex="0" className={!!selected && 'checked'}>
+      <CurrentSelectBox
+        tabIndex="0"
+        className={(!!selected && 'checked') || (errorMsg && 'error')}
+        onClick={() => {
+          if (errorMsg) {
+            setHideError(false)
+          }
+        }}
+      >
         {items &&
           items.map(({ value, label }) => (
             <BoxValue key={value}>
@@ -41,15 +59,17 @@ function Dropdown({ items, selectLabel, onChange, selected, disbabled }) {
         </FloatingLabel>
         <Arrow alt="Arrow Icon" aria-hidden="true" />
       </CurrentSelectBox>
+      {errorMsg && hideError && <HelpMsg>{errorMsg}</HelpMsg>}
       <SelectBoxList>
         {items &&
           items.map(({ value, label }) => (
-            <ListItem>
+            <ListItem key={value}>
               <Label
-                key={value}
                 htmlFor={label}
                 aria-hidden="true"
-                onClick={() => onChange(value)}
+                onClick={() => {
+                  onChange(value)
+                }}
               >
                 {value}
               </Label>
@@ -72,6 +92,7 @@ Dropdown.propTypes = {
   selectLabel: PropTypes.string,
   selected: PropTypes.string,
   disbabled: PropTypes.bool,
+  errorMsg: PropTypes.string,
 }
 
 export default Dropdown

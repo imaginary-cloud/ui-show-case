@@ -22,6 +22,7 @@ export const FloatingLabel = styled.label`
   left: 10px;
   transform: translateY(0px);
   transition: all var(--animation-duration);
+  opacity: 0.7;
 
   &.checked {
     transform: translateY(-45px);
@@ -40,6 +41,10 @@ export const CurrentSelectBox = styled.div`
 
   &.checked {
     border-bottom-color: ${({ theme }) => theme.accentColor};
+  }
+
+  &.error {
+    border-bottom-color: ${({ theme }) => theme.error};
   }
 `
 
@@ -93,6 +98,12 @@ export const SelectBoxList = styled.ul`
 export const ListItem = styled.li``
 
 export const Label = styled.label``
+
+export const HelpMsg = styled.span`
+  display: block;
+  color: ${({ theme }) => theme.error};
+  padding-top: calc(${({ theme }) => theme.defaultPadding} / 2);
+`
 
 export const Arrow = styled.div`
   background-image: url('data:image/svg+xml;base64,${btoa(svgArrow)}');
@@ -155,6 +166,10 @@ export const Container = styled.div`
 
       ${Arrow} {
         transform: translateY(-50%) rotate(180deg);
+      }
+
+      ${HelpMsg} {
+        display: none;
       }
     }
   }

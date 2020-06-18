@@ -38,3 +38,23 @@ export const DropdownDisabled = () => (
     <Dropdown selectLabel="Which is your favorite flavor?" disbabled />
   </Container>
 )
+
+export const DropdownError = () => {
+  const [value, setValue] = useState('')
+
+  function handleChange(selected) {
+    setValue(selected)
+  }
+
+  return (
+    <Container style={{ marginTop: '10px', height: '250px' }}>
+      <Dropdown
+        selectLabel="Which is your favorite flavor?"
+        items={INITIAL_VALUE}
+        onChange={handleChange}
+        selected={value}
+        errorMsg="Name is required"
+      />
+    </Container>
+  )
+}

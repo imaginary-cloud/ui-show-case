@@ -18,9 +18,10 @@ export const FormFieldControl = styled.div`
 
 export const Label = styled.label`
   font-size: 1.2rem;
-  transform: translateY(15px);
+  transform: translateY(-20px);
   line-height: ${({ theme }) => theme.defaultLineHeight};
   font-size: ${({ theme }) => theme.defaultFontSize};
+  color: ${({ theme }) => theme.secondary};
 
   display: block;
   font-weight: normal;
@@ -31,6 +32,10 @@ export const Label = styled.label`
   top: 0;
   transition: all var(--animation-duration);
   width: 100%;
+  opacity: 0.7;
+  &:hover {
+    opacity: 1;
+  }
 `
 
 // adding custom props to native components
@@ -49,13 +54,13 @@ export const Bar = styled.div`
   width: 1%;
 `
 
-export const InputItem = styled.input.attrs(({ hasError }) => ({
+export const TextArea = styled.textarea.attrs(({ hasError }) => ({
   hasError,
 }))`
   appearance: none;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid ${({ theme }) => theme.primary};
+  border: 2px solid ${({ theme }) => theme.primary};
   color: ${({ theme }) => theme.primary};
   display: block;
   font-size: 1.2rem;
@@ -65,47 +70,38 @@ export const InputItem = styled.input.attrs(({ hasError }) => ({
   padding-top: 10px;
   width: 100%;
   background: ${({ theme }) => theme.lightBackground};
+  resize: none;
+  transition: all var(--animation-duration);
 
-  // IE 10-11
-  &:-ms-input-placeholder {
-    ~ ${Label} {
-      font-size: 1.2rem;
-      transform: translateY(15px);
-    }
-  }
   // All other browsers except Edge
   &:not(:placeholder-shown),
   &:-webkit-autofill {
-    ~ ${Label} {
-      font-size: 0.75rem;
-      transform: translateY(-14px);
-      color: ${({ theme }) => theme.accentColor};
-    }
-
-    ~ ${Bar} {
+    /* ~ ${Bar} {
       border-bottom: 2px solid
         ${({ theme, hasError }) => (hasError ? theme.error : theme.primary)};
       transform: scaleX(150);
-    }
+    } */
+    border: 2px solid ${({ theme, hasError }) =>
+      hasError ? theme.error : theme.primary};
   }
 
   &:focus {
-    ~ ${Label} {
-      color: ${({ theme }) => theme.accentColor};
-      font-size: 0.75rem;
-      transform: translateY(-14px);
-    }
-    ~ ${Bar} {
+    /* ~ ${Bar} {
       border-bottom: 2px solid ${({ theme }) => theme.accentColor};
       transform: scaleX(150);
-    }
+    } */
+
+    border: 2px solid ${({ theme }) => theme.accentColor};
     caret-color: ${({ theme }) => theme.accentColor};
   }
 
   &:disabled {
+    opacity: 0.2;
+
     ~ ${Label} {
       opacity: 0.2;
     }
+    /* border: 2px solid ${({ theme }) => theme.accentColor}; */
   }
 `
 

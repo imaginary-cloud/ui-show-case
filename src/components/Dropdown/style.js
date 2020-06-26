@@ -1,10 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 
 const svgArrow = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 451.85 451.85">
-      <defs />
-      <path d="M225.92 354.7c-8.1 0-16.2-3.09-22.37-9.26L9.27 151.16a31.64 31.64 0 1144.75-44.75l171.9 171.91 171.9-171.9a31.64 31.64 0 0144.75 44.74L248.3 345.45a31.55 31.55 0 01-22.37 9.26z" />
-    </svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="11" height="7" fill="none"><path d="M1 1l4.5 4.5L10 1" stroke="#161616" stroke-width="1.5"/></svg>
 `
 
 const HideList = keyframes`
@@ -107,7 +104,6 @@ export const HelpMsg = styled.span`
 
 export const Arrow = styled.div`
   background-image: url('data:image/svg+xml;base64,${btoa(svgArrow)}');
-  background-size: 100%;
   height: 30px;
   background-repeat: no-repeat;
   background-position: center center;
@@ -117,7 +113,6 @@ export const Arrow = styled.div`
   right: 15px;
   transform: translateY(-50%);
   width: 20px;
-  opacity: 0.3;
   transition: 0.2s ease;
 `
 

@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
     font-size: 16px;
   }
 
-  body {
+  body, input, select, textarea {
     font-family: 'Inter', sans-serif;
   }
 `

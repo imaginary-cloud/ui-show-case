@@ -18,9 +18,11 @@ export const FormFieldControl = styled.div`
 
 export const Label = styled.label`
   font-size: 1.2rem;
-  transform: translateY(15px);
+  transform: translateY(20px);
   line-height: ${({ theme }) => theme.defaultLineHeight};
   font-size: ${({ theme }) => theme.defaultFontSize};
+  color: #3b3737;
+  opacity: 0.7;
 
   display: block;
   font-weight: normal;
@@ -63,8 +65,7 @@ export const InputItem = styled.input.attrs(({ hasError }) => ({
   font-size: 1.2rem;
   margin-top: 24px;
   outline: 0;
-  padding: 0 12px 10px 12px;
-  padding-top: 10px;
+  padding: 16px;
   width: 100%;
   background: ${({ theme }) => theme.lightBackground};
 
@@ -72,7 +73,7 @@ export const InputItem = styled.input.attrs(({ hasError }) => ({
   &:-ms-input-placeholder {
     ~ ${Label} {
       font-size: 1.2rem;
-      transform: translateY(15px);
+      transform: translateY(20px);
     }
   }
   // All other browsers except Edge
@@ -80,7 +81,7 @@ export const InputItem = styled.input.attrs(({ hasError }) => ({
   &:-webkit-autofill {
     ~ ${Label} {
       font-size: 0.75rem;
-      transform: translateY(-14px);
+      transform: translateY(-25px);
       color: ${({ theme }) => theme.accentColor};
     }
 
@@ -95,7 +96,7 @@ export const InputItem = styled.input.attrs(({ hasError }) => ({
     ~ ${Label} {
       color: ${({ theme }) => theme.accentColor};
       font-size: 0.75rem;
-      transform: translateY(-14px);
+      transform: translateY(-25px);
     }
     ~ ${Bar} {
       border-bottom: ${({ theme }) => theme.defaultBorderHeight} solid

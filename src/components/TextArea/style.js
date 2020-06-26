@@ -41,7 +41,8 @@ export const Label = styled.label`
 // adding custom props to native components
 // https://spectrum.chat/styled-components/general/how-to-pass-custom-props-to-native-elements~69a20d04-1a8a-4fe4-927f-225dae003fd3
 export const Bar = styled.div`
-  border-bottom: 2px solid ${({ theme }) => theme.primary};
+  border-bottom: solid ${({ theme }) => theme.primary};
+  border-width: ${({ theme }) => theme.defaultBorderHeight};
   bottom: 0;
   content: '';
   display: block;
@@ -59,8 +60,8 @@ export const TextArea = styled.textarea.attrs(({ hasError }) => ({
 }))`
   appearance: none;
   background: transparent;
-  border: 0;
-  border: 2px solid ${({ theme }) => theme.primary};
+  border: solid ${({ theme }) => theme.primary};
+  border-width: ${({ theme }) => theme.defaultBorderHeight};
   color: ${({ theme }) => theme.primary};
   display: block;
   font-size: 1.2rem;
@@ -76,21 +77,13 @@ export const TextArea = styled.textarea.attrs(({ hasError }) => ({
   // All other browsers except Edge
   &:not(:placeholder-shown),
   &:-webkit-autofill {
-    /* ~ ${Bar} {
-      border-bottom: 2px solid
-        ${({ theme, hasError }) => (hasError ? theme.error : theme.primary)};
-      transform: scaleX(150);
-    } */
-    border: 2px solid ${({ theme, hasError }) =>
+    border-color: ${({ theme, hasError }) =>
       hasError ? theme.error : theme.primary};
+
+    border-width: ${({ theme }) => theme.defaultBorderHeight};
   }
 
   &:focus {
-    /* ~ ${Bar} {
-      border-bottom: 2px solid ${({ theme }) => theme.accentColor};
-      transform: scaleX(150);
-    } */
-
     border: 2px solid ${({ theme }) => theme.accentColor};
     caret-color: ${({ theme }) => theme.accentColor};
   }
@@ -101,7 +94,6 @@ export const TextArea = styled.textarea.attrs(({ hasError }) => ({
     ~ ${Label} {
       opacity: 0.2;
     }
-    /* border: 2px solid ${({ theme }) => theme.accentColor}; */
   }
 `
 

@@ -8,17 +8,21 @@ export default {
   decorators: [withKnobs],
 }
 
-export const WithoutLabel = () => (
-  <Checkbox isChecked={boolean('isChecked', false)} />
-)
-export const WithLabel = () => {
+export const Default = () => {
   const [isChecked, setIsChecked] = useState(false)
   return (
     <Checkbox
       label={text('label', 'Checkbox With Label')}
       onChange={() => setIsChecked(prevState => !prevState)}
-      isChecked={boolean('isChecked', isChecked)}
-      labelStyle={{ color: '#047AFE' }}
+      checked={boolean('isChecked', !isChecked)}
     />
   )
 }
+
+export const DisabledChecked = () => (
+  <Checkbox label={text('label', 'Checkbox With Label')} disabled checked />
+)
+
+export const Disabled = () => (
+  <Checkbox label={text('label', 'Checkbox With Label')} disabled />
+)

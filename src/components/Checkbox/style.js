@@ -1,16 +1,15 @@
 import styled from 'styled-components'
 
 const checkImage = `
-<svg class="svg-icon" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" viewBox="0 0 512 512">
-  <defs/>
-  <path fill="yellowgreen" d="M173.9 439.4L7.5 273c-10-10-10-26.2 0-36.2l36.2-36.2c10-10 26.2-10 36.2 0L192 312.69l240.1-240.1c10-10 26.2-10 36.2 0l36.2 36.21c10 10 10 26.2 0 36.2L210.1 439.4c-10 10-26.2 10-36.2 0z"/>
+<svg width="14" height="12" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M.75 6.75l4 4 8.5-10" stroke="white" stroke-width="1.5"/>
 </svg>
 `
 
 export const Input = styled.input`
   position: absolute;
-  height: 20px;
-  width: 20px;
+  height: 18px;
+  width: 18px;
 
   left: 0;
   opacity: 0;
@@ -20,6 +19,8 @@ export const Input = styled.input`
 export const Label = styled.label`
   padding-left: 30px;
   padding-top: 3px;
+  color: ${({ theme }) => theme.accentColor};
+  user-select: none;
 `
 
 export const Container = styled.div`
@@ -28,27 +29,29 @@ export const Container = styled.div`
   position: relative;
 
   ${Input} + ${Label}::before {
-    border: 2px solid;
+    border: ${({ theme }) => theme.defaultBorderHeight} solid;
+    border-color: ${({ theme }) => theme.primary};
     content: '';
     position: absolute;
     left: 0;
     top: 50%;
     transform: translateY(-50%);
 
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
   }
 
   ${Input} + ${Label}::after {
     content: '';
     opacity: 0;
     background-image: url('data:image/svg+xml;utf8,${checkImage}');
+    background-position: center;
     background-repeat: no-repeat;
-    height: 15px;
-    width: 15px;
+    height: 18px;
+    width: 18px;
 
     position: absolute;
-    left: 5px;
+    left: 2px;
     top: 50%;
     transform: translateY(-50%);
     transition: opacity 0.2s ease-in-out;
@@ -56,10 +59,21 @@ export const Container = styled.div`
 
   ${Input}:checked + ${Label}::after {
     opacity: 1;
+    background-color: ${({ theme }) => theme.accentColor};
+    border-color: ${({ theme }) => theme.accentColor};
+  }
+
+  ${Input}:checked + ${Label}:before {
+    border-color: ${({ theme }) => theme.accentColor};
   }
 
   ${Input}:focus + ${Label}::before {
-    box-shadow: 0 0 0 3px yellowgreen;
     outline: 3px solid transparent; /* For Windows high contrast mode. */
+  }
+
+  ${Input}:disabled + ${Label}:after, 
+  ${Input}:disabled + ${Label}:before,
+  ${Input}:disabled ~ ${Label} {
+    opacity: 0.7;
   }
 `

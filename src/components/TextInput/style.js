@@ -36,7 +36,8 @@ export const Label = styled.label`
 // adding custom props to native components
 // https://spectrum.chat/styled-components/general/how-to-pass-custom-props-to-native-elements~69a20d04-1a8a-4fe4-927f-225dae003fd3
 export const Bar = styled.div`
-  border-bottom: 2px solid ${({ theme }) => theme.primary};
+  border-bottom: ${({ theme }) => theme.defaultBorderHeight} solid;
+  border-color: ${({ theme }) => theme.primary};
   bottom: 0;
   content: '';
   display: block;
@@ -55,7 +56,8 @@ export const InputItem = styled.input.attrs(({ hasError }) => ({
   appearance: none;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid ${({ theme }) => theme.primary};
+  border-bottom: ${({ theme }) => theme.defaultBorderHeight} solid
+    ${({ theme }) => theme.primary};
   color: ${({ theme }) => theme.primary};
   display: block;
   font-size: 1.2rem;
@@ -83,7 +85,7 @@ export const InputItem = styled.input.attrs(({ hasError }) => ({
     }
 
     ~ ${Bar} {
-      border-bottom: 2px solid
+      border-bottom: ${({ theme }) => theme.defaultBorderHeight} solid
         ${({ theme, hasError }) => (hasError ? theme.error : theme.primary)};
       transform: scaleX(150);
     }
@@ -96,7 +98,8 @@ export const InputItem = styled.input.attrs(({ hasError }) => ({
       transform: translateY(-14px);
     }
     ~ ${Bar} {
-      border-bottom: 2px solid ${({ theme }) => theme.accentColor};
+      border-bottom: ${({ theme }) => theme.defaultBorderHeight} solid
+        ${({ theme }) => theme.accentColor};
       transform: scaleX(150);
     }
     caret-color: ${({ theme }) => theme.accentColor};

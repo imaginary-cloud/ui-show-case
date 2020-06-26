@@ -8,15 +8,11 @@ export default {
   decorators: [withKnobs],
 }
 
-export const WithoutLabel = () => (
-  <Checkbox name="no-label" id="no-label" labelStyle={{ color: '#047AFE' }} />
-)
-
-export const WithLabel = () => {
+export const Default = () => {
   const radioOptions = [
     {
-      label: 'Elefant',
-      id: 'elefant',
+      label: 'Dog',
+      id: 'Dog',
     },
     {
       label: 'Monkey',
@@ -46,3 +42,11 @@ export const WithLabel = () => {
     </fieldset>
   )
 }
+
+export const DisabledChecked = () => (
+  <Checkbox name="no-label" id="no-label" disabled defaultChecked />
+)
+
+export const Disabled = () => (
+  <Checkbox name="no-label" id="no-label" disabled />
+)

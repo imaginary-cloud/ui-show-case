@@ -9,16 +9,36 @@ export default {
   decorators: [withKnobs],
 }
 
-export const Welcome = () => <h1>about this</h1>
-
-export const Text = () => (
-  <Button onClick={action('clicked')}>{text('Text', '😀 😎 👍 💯')}</Button>
+export const ButtonLevel1Inactive = () => (
+  <Button onClick={action('clicked')} disabled>
+    {text('Text', 'BUTTON')}
+  </Button>
 )
 
-export const Emoji = () => (
-  <Button onClick={action('clicked')}>
-    <span role="img" aria-label="so cool">
-      {text('Emoji', '😀 😎 👍 💯')}
-    </span>
+export const ButtonLevel1Default = () => (
+  <Button onClick={action('clicked')}>{text('Text', 'BUTTON')}</Button>
+)
+
+export const ButtonLevel2Inactive = () => (
+  <Button onClick={action('clicked')} outline disabled>
+    {text('Text', 'BUTTON')}
+  </Button>
+)
+
+export const ButtonLevel2Default = () => (
+  <Button onClick={action('clicked')} outline>
+    {text('Text', 'BUTTON')}
+  </Button>
+)
+
+export const ButtonLevel3Inactive = () => (
+  <Button onClick={action('clicked')} link disabled>
+    {text('Text', 'BUTTON')}
+  </Button>
+)
+
+export const ButtonLevel3Default = () => (
+  <Button onClick={action('clicked')} link>
+    {text('Text', 'BUTTON')}
   </Button>
 )

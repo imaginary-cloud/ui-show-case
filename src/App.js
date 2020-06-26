@@ -20,6 +20,7 @@ export const theme = {
   defaultPadding: '16px',
   defaultLineHeight: '28px',
   defaultFontSize: '14px',
+  defaultBorderHeight: '1.5px',
 
   hoverColor: '#E89070;',
 }

@@ -125,7 +125,7 @@ export const Container = styled.div`
   color: ${({ theme }) => theme.primary};
   width: 100%;
 
-  &.disbabled {
+  &.disabled {
     opacity: 0.5;
     cursor: not-allowed;
 

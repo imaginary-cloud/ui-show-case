@@ -20,13 +20,13 @@ function Dropdown({
   selectLabel,
   onChange,
   selected,
-  disbabled,
+  disabled,
   errorMsg,
 }) {
   const [hideError, setHideError] = useState(true)
 
   return (
-    <Container className={disbabled && 'disbabled'}>
+    <Container className={disabled && 'disabled'}>
       <CurrentSelectBox
         tabIndex="0"
         className={(!!selected && 'checked') || (errorMsg && 'error')}
@@ -49,7 +49,7 @@ function Dropdown({
                   console.log()
                 }}
                 checked={value === selected}
-                disabled={disbabled}
+                disabled={disabled}
               />
               <Text>{label}</Text>
             </BoxValue>
@@ -91,7 +91,7 @@ Dropdown.propTypes = {
   onChange: PropTypes.func,
   selectLabel: PropTypes.string,
   selected: PropTypes.string,
-  disbabled: PropTypes.bool,
+  disabled: PropTypes.bool,
   errorMsg: PropTypes.string,
 }
 

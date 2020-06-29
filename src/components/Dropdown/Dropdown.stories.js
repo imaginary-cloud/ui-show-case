@@ -35,7 +35,7 @@ export const DropdownDefault = () => {
 
 export const DropdownDisabled = () => (
   <Container style={{ marginTop: '10px', height: '250px' }}>
-    <Dropdown selectLabel="Which is your favorite flavor?" disbabled />
+    <Dropdown selectLabel="Which is your favorite flavor?" disabled />
   </Container>
 )
 

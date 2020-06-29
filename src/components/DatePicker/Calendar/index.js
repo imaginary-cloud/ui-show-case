@@ -10,8 +10,8 @@ import calendar, {
   getPreviousMonth,
   WEEK_DAYS,
   CALENDAR_MONTHS,
-} from './helpers/calendar'
-import { usePrevious } from './helpers/usePrevious'
+} from '../helpers/calendar'
+import { usePrevious } from '../helpers/usePrevious'
 
 import {
   CalendarHeader,
@@ -97,12 +97,10 @@ function CalendarDate({
   const isCurrent = current && isSameDay(_date, current)
   const inMonth = isSameMonth(_date, new Date([year, month, 1].join('-')))
 
-  const onClick = gotoDate(_date)
-
   const props = {
     index,
     inMonth,
-    onClick,
+    onClick: gotoDate(_date),
     title: _date.toDateString(),
   }
 
@@ -123,10 +121,10 @@ function CalendarDate({
 CalendarDate.propTypes = {
   fullDate: PropTypes.array,
   index: PropTypes.number,
-  current: PropTypes.number,
+  current: PropTypes.object,
   month: PropTypes.number,
   year: PropTypes.number,
-  today: PropTypes.number,
+  today: PropTypes.object,
   gotoDate: PropTypes.func,
 }
 
@@ -160,13 +158,10 @@ function Calendar({ date, onDateChanged }) {
     if (evt) {
       evt.preventDefault()
     }
-    const { current } = state
 
-    if (!current && isSameDay(d, current)) {
-      setState(prevState => ({ ...prevState, ...resolveState(d) }))
-      if (typeof onDateChanged === 'function') {
-        onDateChanged(d)
-      }
+    setState(prevState => ({ ...prevState, ...resolveState(d) }))
+    if (typeof onDateChanged === 'function') {
+      onDateChanged(d)
     }
   }
 

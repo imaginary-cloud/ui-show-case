@@ -1,14 +1,27 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { text } from '@storybook/addon-knobs'
 
-import Calendar from './index'
+import DatePicker from './index'
+
 import Container from '../Container'
 
 export default {
   title: 'DatePicker',
 }
 
-export const DatePicker = () => (
-  <Container style={{ marginTop: '10px', height: '100%' }}>
-    <Calendar date={new Date()} onDateChanged={() => console.log('eu')} />
+export const DatePickerDefault = () => (
+  <Container
+    style={{
+      marginTop: '10px',
+      height: '100%',
+      width: '60%',
+      margin: '20% auto',
+    }}
+  >
+    <DatePicker
+      label={text('label', 'Date')}
+      value=""
+      onDateChanged={date => console.log(date)}
+    />
   </Container>
 )

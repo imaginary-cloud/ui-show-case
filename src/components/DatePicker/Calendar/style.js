@@ -87,10 +87,11 @@ export const CalendarDay = styled(CalendarCell)`
 `
 
 export const CalendarDateStyled = styled(CalendarCell)`
-  font-weight: ${props => (props.inMonth ? 500 : 300)};
+  font-weight: normal;
   font-size: 1em;
   cursor: pointer;
-  color: ${props => (props.inMonth ? `#333` : `#ddd`)};
+  opacity: ${props => (props.inMonth ? `1` : `0.4`)};
+  color: ${({ theme }) => theme.primary};
   grid-row: ${props => Math.floor(props.index / 7) + 2} / span 1;
   transition: all 0.4s ease-out;
   :hover {
@@ -99,9 +100,12 @@ export const CalendarDateStyled = styled(CalendarCell)`
 `
 
 export const HighlightedCalendarDate = styled(CalendarDateStyled)`
+  background: ${({ theme }) => theme.accentColor};
+  color: ${({ theme }) => theme.white};
+`
+
+export const TodayCalendarDate = styled(CalendarDateStyled)`
   border-width: 1px;
   border-color: ${({ theme }) => theme.primary};
   border-style: solid;
 `
-
-export const TodayCalendarDate = styled(HighlightedCalendarDate)``

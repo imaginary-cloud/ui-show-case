@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
 import { getDateISO, isDate } from './helpers/calendar'
@@ -27,25 +27,17 @@ function DatePicker({ label, value, onDateChanged, placeholder }) {
     }
   }, [])
 
-  function handleDateChange(date) {
-    const newDate = date ? getDateISO(date) : null
+  const handleDateChangeCallback = useCallback(d => handleDateChange(d), [])
 
+  function handleDateChange(d) {
+    const newDate = d ? getDateISO(d) : null
     setCurrentDate(newDate)
     setIsCalendarOpen(false)
+
     if (typeof onDateChanged === 'function') {
-      onDateChanged(currentDate)
+      onDateChanged(newDate)
     }
   }
-
-  const prevDate = usePrevious(value)
-  useEffect(() => {
-    const dateISO = getDateISO(new Date(currentDate))
-    const prevDateISO = getDateISO(new Date(prevDate))
-
-    if (dateISO !== prevDateISO) {
-      setCurrentDate(dateISO)
-    }
-  }, [])
 
   return (
     <Container>
@@ -81,7 +73,7 @@ function DatePicker({ label, value, onDateChanged, placeholder }) {
         >
           <Calendar
             date={currentDate && new Date(currentDate)}
-            onDateChanged={date => handleDateChange(date)}
+            onDateChanged={handleDateChangeCallback}
           />
         </DatePickerDropdownMenu>
       </DatePickerDropdown>

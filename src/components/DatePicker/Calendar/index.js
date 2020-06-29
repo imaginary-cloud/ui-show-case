@@ -129,18 +129,21 @@ CalendarDate.propTypes = {
 }
 
 function Calendar({ date, onDateChanged }) {
-  const [state, setState] = useState({ today: new Date(), ...resolveState() })
+  const [state, setState] = useState({
+    today: new Date(),
+    ...resolveState(date),
+  })
 
   const dayTimeout = useRef()
   const pressureTimer = useRef()
   const pressureTimeout = useRef()
 
-  function resolveState() {
-    const isDateObject = isDate(date)
-    const _date = isDateObject ? date : new Date()
+  function resolveState(d) {
+    const isDateObject = isDate(d)
+    const _date = isDateObject ? d : new Date()
 
     return {
-      current: isDateObject ? date : null,
+      current: isDateObject ? d : null,
       month: +_date.getMonth() + 1,
       year: _date.getFullYear(),
     }
@@ -159,7 +162,11 @@ function Calendar({ date, onDateChanged }) {
       evt.preventDefault()
     }
 
-    setState(prevState => ({ ...prevState, ...resolveState(d) }))
+    const { current } = state
+    if (!(current && isSameDay(date, current))) {
+      setState(prevState => ({ ...prevState, ...resolveState(d) }))
+    }
+
     if (typeof onDateChanged === 'function') {
       onDateChanged(d)
     }
@@ -242,17 +249,12 @@ function Calendar({ date, onDateChanged }) {
     }
   }, [])
 
-  const prevDate = usePrevious(date)
   useEffect(() => {
-    const dateMatch = date === prevDate || isSameDay(date, prevDate)
-
-    if (dateMatch) {
+    const { current } = state
+    if (!(current && isSameDay(date, current))) {
       setState(prevState => ({ ...prevState, ...resolveState(date) }))
-      if (typeof onDateChanged === 'function') {
-        onDateChanged(date)
-      }
     }
-  }, [])
+  }, [date])
 
   return (
     <CalendarContainer>

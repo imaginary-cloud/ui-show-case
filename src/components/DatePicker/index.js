@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
-import { getDateISO, isDate, isInRange } from './helpers/calendar'
+import { getDateISO, isDate } from './helpers/calendar'
 
 import Calendar from './Calendar'
 
@@ -29,27 +29,22 @@ function DatePicker({ label, value, onDateChanged, placeholder, isRange }) {
   const handleDateChangeCallback = useCallback(d => handleDateChange(d), [])
 
   function handleDateChange(d) {
-    setCurrentDate(d)
+    const formatData = data => {
+      const iso = getDateISO(data)
+      return iso && iso.split('-').join(' / ')
+    }
+    const { start, finish } = d
+    const newDate =
+      isRange && start && finish && d
+        ? `${formatData(start)} - ${formatData(finish)}`
+        : formatData(d)
+
+    setCurrentDate(newDate)
     setIsCalendarOpen(false)
 
     if (typeof onDateChanged === 'function') {
       onDateChanged(d)
     }
-  }
-
-  function getDataValue() {
-    const formatData = data => {
-      const iso = getDateISO(data)
-      return iso.split('-').join(' / ')
-    }
-
-    if (isInRange) {
-      return currentDate
-        ? `${formatData(currentDate.start)} - ${formatData(currentDate.finish)}`
-        : ''
-    }
-
-    return currentDate ? formatData(currentDate) : ''
   }
 
   return (
@@ -64,7 +59,7 @@ function DatePicker({ label, value, onDateChanged, placeholder, isRange }) {
         </DatePickerLabel>
         <DatePickerInput
           type="text"
-          value={getDataValue()}
+          value={currentDate || ''}
           onChange={evt => evt.preventDefault()}
           readOnly="readonly"
           placeholder={isCalendarOpen && !currentDate ? placeholder : ''}

@@ -102,6 +102,10 @@ function CalendarDate({
   const isCurrent = current && isSameDay(_date, current)
   const inMonth = isSameMonth(_date, new Date([year, month, 1].join('-')))
 
+  const { start, finish } = selectedRange
+  const isDateInSelectedRange = isInRange(_date, start, finish)
+  const startOrFinishRange = isSameDay(start, _date) || isSameDay(finish, _date)
+
   const props = {
     index,
     inMonth,
@@ -111,13 +115,10 @@ function CalendarDate({
     title: _date.toDateString(),
   }
 
-  const { start, finish } = selectedRange
-  const isDateInSelectedRange = isInRange(getDateISO(_date), start, finish)
-
-  if (
-    getDateISO(start) === getDateISO(_date) ||
-    getDateISO(finish) === getDateISO(_date)
-  ) {
+  /**
+   * Return highlight component for the start or finish of one range, or the selected one
+   */
+  if (startOrFinishRange || isCurrent) {
     return (
       <HighlightedCalendarDate key={getDateISO(_date)} {...props}>
         {_date.getDate()}
@@ -125,6 +126,9 @@ function CalendarDate({
     )
   }
 
+  /**
+   * Return highlight component for the dates in between
+   */
   if (isDateInSelectedRange) {
     return (
       <HighlightedRangeCalendarDate key={getDateISO(_date)} {...props}>
@@ -133,17 +137,24 @@ function CalendarDate({
     )
   }
 
-  // eslint-disable-next-line no-nested-ternary
-  const DateComponent = isCurrent
-    ? HighlightedCalendarDate
-    : isToday
-    ? TodayCalendarDate
-    : CalendarDateStyled
+  /**
+   * Return the highlight component for today
+   */
+  if (isToday) {
+    return (
+      <TodayCalendarDate key={getDateISO(_date)} {...props}>
+        {_date.getDate()}
+      </TodayCalendarDate>
+    )
+  }
 
+  /**
+   * Return the default date component
+   */
   return (
-    <DateComponent key={getDateISO(_date)} {...props}>
+    <CalendarDateStyled key={getDateISO(_date)} {...props}>
       {_date.getDate()}
-    </DateComponent>
+    </CalendarDateStyled>
   )
 }
 
@@ -228,9 +239,8 @@ function Calendar({ date, onDateChanged, isRange }) {
   }
 
   useEffect(() => {
-    if (typeof onDateChanged === 'function') {
-      onDateChanged(selectedRange)
-    }
+    const timer = setTimeout(() => onDateChanged(selectedRange), 1000)
+    return () => clearInterval(timer)
   }, [selectedRange.finish])
 
   function gotoPreviousMonth() {

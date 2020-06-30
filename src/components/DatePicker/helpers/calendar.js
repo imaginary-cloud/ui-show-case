@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 // (int) The current year
 export const THIS_YEAR = +new Date().getFullYear()
 
@@ -125,6 +126,14 @@ export const getNextMonth = (month, year) => {
   return { month: nextMonth, year: nextMonthYear }
 }
 
+// Check if date is in range
+export const isInRange = (today, from, to) => {
+  const _today = new Date(today).getTime()
+  const _from = new Date(from).getTime()
+  const _to = new Date(to).getTime()
+  return _today >= _from && _today <= _to
+}
+
 // Calendar builder for a month in the specified year
 // Returns an array of the calendar dates.
 // Each calendar date is represented as an array => [YYYY, MM, DD]
@@ -152,7 +161,6 @@ export default (month = THIS_MONTH, year = THIS_YEAR) => {
   const prevMonthDays = getMonthDays(prevMonth, prevMonthYear)
 
   // Builds dates to be displayed from previous month
-
   const prevMonthDates = [...new Array(daysFromPrevMonth)].map((n, index) => {
     const day = index + 1 + (prevMonthDays - daysFromPrevMonth)
     return [prevMonthYear, zeroPad(prevMonth, 2), zeroPad(day, 2)]

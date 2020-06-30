@@ -5,13 +5,13 @@ import calendar, {
   isDate,
   isSameDay,
   isSameMonth,
+  isInRange,
   getDateISO,
   getNextMonth,
   getPreviousMonth,
   WEEK_DAYS,
   CALENDAR_MONTHS,
 } from '../helpers/calendar'
-import { usePrevious } from '../helpers/usePrevious'
 
 import {
   CalendarHeader,
@@ -21,6 +21,7 @@ import {
   ArrowRight,
   CalendarDay,
   HighlightedCalendarDate,
+  HighlightedRangeCalendarDate,
   TodayCalendarDate,
   CalendarDateStyled,
   CalendarContainer,
@@ -90,6 +91,10 @@ function CalendarDate({
   year,
   today,
   gotoDate,
+  startSelectRange,
+  finishSelectRange,
+  selectedRange,
+  isRange,
 }) {
   const _date = new Date(fullDate.join('-'))
 
@@ -101,7 +106,31 @@ function CalendarDate({
     index,
     inMonth,
     onClick: gotoDate(_date),
+    onMouseDown: isRange && startSelectRange(_date),
+    onMouseUp: isRange && finishSelectRange(_date),
     title: _date.toDateString(),
+  }
+
+  const { start, finish } = selectedRange
+  const isDateInSelectedRange = isInRange(getDateISO(_date), start, finish)
+
+  if (
+    getDateISO(start) === getDateISO(_date) ||
+    getDateISO(finish) === getDateISO(_date)
+  ) {
+    return (
+      <HighlightedCalendarDate key={getDateISO(_date)} {...props}>
+        {_date.getDate()}
+      </HighlightedCalendarDate>
+    )
+  }
+
+  if (isDateInSelectedRange) {
+    return (
+      <HighlightedRangeCalendarDate key={getDateISO(_date)} {...props}>
+        {_date.getDate()}
+      </HighlightedRangeCalendarDate>
+    )
   }
 
   // eslint-disable-next-line no-nested-ternary
@@ -126,13 +155,23 @@ CalendarDate.propTypes = {
   year: PropTypes.number,
   today: PropTypes.object,
   gotoDate: PropTypes.func,
+  getSelectRange: PropTypes.func,
+  startSelectRange: PropTypes.func,
+  finishSelectRange: PropTypes.func,
+  isRange: PropTypes.bool,
+  selectedRange: PropTypes.shape({
+    start: PropTypes.instanceOf(Date),
+    finish: PropTypes.instanceOf(Date),
+  }),
 }
 
-function Calendar({ date, onDateChanged }) {
+function Calendar({ date, onDateChanged, isRange }) {
   const [state, setState] = useState({
     today: new Date(),
     ...resolveState(date),
   })
+
+  const [selectedRange, setSelectedRange] = useState({})
 
   const dayTimeout = useRef()
   const pressureTimer = useRef()
@@ -171,6 +210,28 @@ function Calendar({ date, onDateChanged }) {
       onDateChanged(d)
     }
   }
+
+  const startSelectRange = d => evt => {
+    if (evt) {
+      evt.preventDefault()
+    }
+
+    setSelectedRange({ start: d })
+  }
+
+  const finishSelectRange = d => evt => {
+    if (evt) {
+      evt.preventDefault()
+    }
+
+    setSelectedRange(prevState => ({ ...prevState, finish: d }))
+  }
+
+  useEffect(() => {
+    if (typeof onDateChanged === 'function') {
+      onDateChanged(selectedRange)
+    }
+  }, [selectedRange.finish])
 
   function gotoPreviousMonth() {
     const { month, year } = state
@@ -221,7 +282,8 @@ function Calendar({ date, onDateChanged }) {
     if (evt) {
       evt.preventDefault()
     }
-    const fn = evt.shiftKey ? gotoPreviousYear() : gotoPreviousMonth()
+
+    const fn = evt.shiftKey ? gotoPreviousYear : gotoPreviousMonth
     handlePressure(fn)
   }
 
@@ -229,7 +291,7 @@ function Calendar({ date, onDateChanged }) {
     if (evt) {
       evt.preventDefault()
     }
-    const fn = evt.shiftKey ? gotoNextYear() : gotoNextMonth()
+    const fn = evt.shiftKey ? gotoNextYear : gotoNextMonth
     handlePressure(fn)
   }
 
@@ -269,7 +331,16 @@ function Calendar({ date, onDateChanged }) {
         {getCalendarDates().map((fullDate, index) => (
           <CalendarDate
             key={String(fullDate)}
-            {...{ fullDate, index, ...state, gotoDate }}
+            {...{
+              fullDate,
+              index,
+              ...state,
+              gotoDate,
+              startSelectRange,
+              selectedRange,
+              finishSelectRange,
+              isRange,
+            }}
           />
         ))}
       </CalendarGrid>
@@ -280,6 +351,7 @@ function Calendar({ date, onDateChanged }) {
 Calendar.propTypes = {
   date: PropTypes.instanceOf(Date),
   onDateChanged: PropTypes.func,
+  isRange: PropTypes.bool,
 }
 
 export default Calendar

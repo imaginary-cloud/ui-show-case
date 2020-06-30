@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 
-import { getDateISO, isDate } from './helpers/calendar'
-import { usePrevious } from './helpers/usePrevious'
+import { getDateISO, isDate, isInRange } from './helpers/calendar'
 
 import Calendar from './Calendar'
 
@@ -16,8 +15,8 @@ import {
   DatePickerDropdownToggle,
 } from './style'
 
-function DatePicker({ label, value, onDateChanged, placeholder }) {
-  const [isCalendarOpen, setIsCalendarOpen] = useState(null)
+function DatePicker({ label, value, onDateChanged, placeholder, isRange }) {
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
   const [currentDate, setCurrentDate] = useState()
 
   useEffect(() => {
@@ -30,13 +29,27 @@ function DatePicker({ label, value, onDateChanged, placeholder }) {
   const handleDateChangeCallback = useCallback(d => handleDateChange(d), [])
 
   function handleDateChange(d) {
-    const newDate = d ? getDateISO(d) : null
-    setCurrentDate(newDate)
+    setCurrentDate(d)
     setIsCalendarOpen(false)
 
     if (typeof onDateChanged === 'function') {
-      onDateChanged(newDate)
+      onDateChanged(d)
     }
+  }
+
+  function getDataValue() {
+    const formatData = data => {
+      const iso = getDateISO(data)
+      return iso.split('-').join(' / ')
+    }
+
+    if (isInRange) {
+      return currentDate
+        ? `${formatData(currentDate.start)} - ${formatData(currentDate.finish)}`
+        : ''
+    }
+
+    return currentDate ? formatData(currentDate) : ''
   }
 
   return (
@@ -51,7 +64,7 @@ function DatePicker({ label, value, onDateChanged, placeholder }) {
         </DatePickerLabel>
         <DatePickerInput
           type="text"
-          value={currentDate ? currentDate.split('-').join(' / ') : ''}
+          value={getDataValue()}
           onChange={evt => evt.preventDefault()}
           readOnly="readonly"
           placeholder={isCalendarOpen && !currentDate ? placeholder : ''}
@@ -74,6 +87,7 @@ function DatePicker({ label, value, onDateChanged, placeholder }) {
           <Calendar
             date={currentDate && new Date(currentDate)}
             onDateChanged={handleDateChangeCallback}
+            isRange={isRange}
           />
         </DatePickerDropdownMenu>
       </DatePickerDropdown>
@@ -86,6 +100,7 @@ DatePicker.propTypes = {
   onDateChanged: PropTypes.func,
   label: PropTypes.string,
   placeholder: PropTypes.string,
+  isRange: PropTypes.bool,
 }
 
 DatePicker.defaultProps = {

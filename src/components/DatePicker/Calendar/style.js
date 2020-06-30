@@ -13,6 +13,8 @@ export const Arrow = styled.button`
   background-position: center;
   border: none;
   background-color: transparent;
+  padding: 16px;
+  cursor: pointer;
 `
 
 export const ArrowLeft = styled(Arrow)``
@@ -102,6 +104,12 @@ export const CalendarDateStyled = styled(CalendarCell)`
 export const HighlightedCalendarDate = styled(CalendarDateStyled)`
   background: ${({ theme }) => theme.accentColor};
   color: ${({ theme }) => theme.white};
+`
+
+export const HighlightedRangeCalendarDate = styled(CalendarDateStyled)`
+  background: ${({ theme }) => theme.accentColor};
+  color: ${({ theme }) => theme.white};
+  opacity: 0.55;
 `
 
 export const TodayCalendarDate = styled(CalendarDateStyled)`

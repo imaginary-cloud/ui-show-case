@@ -1,3 +1,5 @@
+![Deploy to deploy-storybook](https://github.com/imaginary-cloud/ui-show-case/workflows/Deploy%20to%20deploy-storybook/badge.svg)
+
 ## UI SHOWCASE
 A showcase of UI components build with **React** and **styled-components**.
 

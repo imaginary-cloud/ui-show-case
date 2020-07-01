@@ -4,7 +4,7 @@ const SvgArrow = `
 <svg width="7" height="11" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.75.75l-4.5 4.5 4.5 4.5" stroke="#161616" stroke-width="1.5"/></svg>
 `
 
-export const Arrow = styled.button`
+export const Arrow = styled.button.attrs(({ isOpen }) => ({ isOpen }))`
   background-image: url('data:image/svg+xml;base64,${btoa(SvgArrow)}');
   height: 15px;
   width: 10px;
@@ -15,6 +15,7 @@ export const Arrow = styled.button`
   background-color: transparent;
   padding: 16px;
   cursor: pointer;
+  transition: all 0.4s;
 `
 
 export const ArrowLeft = styled(Arrow)``
@@ -24,7 +25,7 @@ export const ArrowRight = styled(Arrow)`
 `
 
 export const ArrowDowUp = styled(Arrow)`
-  transform: rotate(90deg);
+  transform: ${({ isOpen }) => (isOpen ? 'rotate(90deg)' : 'rotate(-90deg)')};
 `
 
 export const CalendarContainer = styled.div`
@@ -46,6 +47,7 @@ export const MonthAndYearContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
 `
 
 export const ArrowContainer = styled(CalendarHeader)`

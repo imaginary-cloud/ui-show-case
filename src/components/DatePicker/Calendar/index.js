@@ -115,6 +115,7 @@ function MonthAndYear({
   clearPressureTimer,
   handleNext,
   handleToggleYear,
+  yearToggle,
 }) {
   const monthName = Object.keys(CALENDAR_MONTHS)[
     Math.max(0, Math.min(month - 1, 11))
@@ -122,14 +123,11 @@ function MonthAndYear({
 
   return (
     <CalendarHeader>
-      <MonthAndYearContainer>
+      <MonthAndYearContainer onClick={() => handleToggleYear(year)}>
         <CalendarMonth>
           {monthName} {year}
         </CalendarMonth>
-        <ArrowDowUp
-          onClick={() => handleToggleYear(year)}
-          title="Choose Year"
-        />
+        <ArrowDowUp title="Choose Year" isOpen={yearToggle} />
       </MonthAndYearContainer>
 
       <ArrowContainer>
@@ -151,6 +149,7 @@ function MonthAndYear({
 MonthAndYear.propTypes = {
   month: PropTypes.number,
   year: PropTypes.number,
+  yearToggle: PropTypes.bool,
   handlePrevious: PropTypes.func,
   clearPressureTimer: PropTypes.func,
   handleNext: PropTypes.func,
@@ -270,7 +269,7 @@ function Calendar({ date, onDateChanged, isRange }) {
     ...resolveState(date),
   })
 
-  const [yearToggle, setYearToggle] = useState(true)
+  const [yearToggle, setYearToggle] = useState(false)
 
   const [selectedRange, setSelectedRange] = useState({})
 
@@ -433,12 +432,13 @@ function Calendar({ date, onDateChanged, isRange }) {
           handlePrevious,
           clearPressureTimer,
           handleNext,
+          yearToggle,
           handleToggleYear: () => setYearToggle((prev) => !prev),
         }}
       />
 
       {yearToggle ? (
-        <Year {...{ handleYear, selectedYear: state.year }} />
+        <Year {...{ handleYear, selectedYear: state.year, yearToggle }} />
       ) : (
         <CalendarGrid>
           {Object.keys(WEEK_DAYS).map((day, index) => (

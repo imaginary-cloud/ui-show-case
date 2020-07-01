@@ -16,7 +16,7 @@ import {
 } from './style'
 
 function DatePicker({ label, value, onDateChanged, placeholder, isRange }) {
-  const [isCalendarOpen, setIsCalendarOpen] = useState(true)
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
   const [currentDate, setCurrentDate] = useState()
 
   useEffect(() => {
@@ -26,10 +26,10 @@ function DatePicker({ label, value, onDateChanged, placeholder, isRange }) {
     }
   }, [])
 
-  const handleDateChangeCallback = useCallback(d => handleDateChange(d), [])
+  const handleDateChangeCallback = useCallback((d) => handleDateChange(d), [])
 
   function handleDateChange(d) {
-    const formatData = data => {
+    const formatData = (data) => {
       const iso = getDateISO(data)
       return iso && iso.split('-').join(' / ')
     }
@@ -60,7 +60,7 @@ function DatePicker({ label, value, onDateChanged, placeholder, isRange }) {
         <DatePickerInput
           type="text"
           value={currentDate || ''}
-          onChange={evt => evt.preventDefault()}
+          onChange={(evt) => evt.preventDefault()}
           readOnly="readonly"
           placeholder={isCalendarOpen && !currentDate ? placeholder : ''}
         />
@@ -68,7 +68,7 @@ function DatePicker({ label, value, onDateChanged, placeholder, isRange }) {
 
       <DatePickerDropdown>
         <DatePickerDropdownToggle
-          onClick={() => setIsCalendarOpen(prevState => !prevState)}
+          onClick={() => setIsCalendarOpen((prevState) => !prevState)}
         >
           <span className="sr-only">Toggle Dropdown</span>
         </DatePickerDropdownToggle>

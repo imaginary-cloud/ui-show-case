@@ -6,7 +6,7 @@ import Container from '../Container'
 import Tooltip from './index'
 
 export default {
-  title: 'Tooltip',
+  title: 'Components/Tooltip',
   decorators: [withKnobs],
 }
 

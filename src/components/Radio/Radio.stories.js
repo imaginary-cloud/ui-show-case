@@ -4,7 +4,7 @@ import { withKnobs, text } from '@storybook/addon-knobs'
 import Checkbox from './index'
 
 export default {
-  title: 'Radio',
+  title: 'Components/Radio',
   decorators: [withKnobs],
 }
 

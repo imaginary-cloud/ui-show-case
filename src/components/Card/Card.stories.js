@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default {
-  title: 'Card',
+  title: 'Components/Card',
 }
 
 export const Welcome = () => <h1>Card</h1>

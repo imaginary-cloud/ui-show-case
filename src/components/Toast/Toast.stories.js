@@ -6,7 +6,7 @@ import withToastProvider from './withToastProvider'
 import { useToast } from './index'
 
 export default {
-  title: 'Toast',
+  title: 'Components/Toast',
 }
 
 const ToastInside = ({ counter }) => (

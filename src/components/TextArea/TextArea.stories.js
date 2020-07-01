@@ -6,7 +6,7 @@ import Container from '../Container'
 import Input from './index'
 
 export default {
-  title: 'Text Area',
+  title: 'Components/TextArea',
 }
 
 export const Empty = () => (
@@ -38,7 +38,7 @@ export const Filled = () => {
         label={text('label', 'Comment(s)')}
         placeholder={text('placeholder', 'Insert text here')}
         value={value}
-        onChange={event => setValue(event.target.value)}
+        onChange={(event) => setValue(event.target.value)}
         id="filled"
         type="text"
       />
@@ -65,7 +65,7 @@ export const Error = () => {
         label={text('label', 'Comment(s)')}
         placeholder={text('placeholder', 'Insert text here')}
         value={value}
-        onChange={event => setValue(event.target.value)}
+        onChange={(event) => setValue(event.target.value)}
         id="error"
         type="text"
         helpText={text('error message', 'Error message')}

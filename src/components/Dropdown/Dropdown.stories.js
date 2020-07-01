@@ -11,7 +11,7 @@ const INITIAL_VALUE = [
 ]
 
 export default {
-  title: 'Dropdown',
+  title: 'Components/Dropdown',
 }
 
 export const DropdownDefault = () => {

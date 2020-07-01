@@ -5,7 +5,7 @@ import Modal from './index'
 import useModal from './useModal'
 
 export default {
-  title: 'Modal',
+  title: 'Components/Modal',
 }
 
 export const Main = () => {

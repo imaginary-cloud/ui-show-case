@@ -4,7 +4,7 @@ import { withKnobs, boolean, text } from '@storybook/addon-knobs'
 import Checkbox from './index'
 
 export default {
-  title: 'Checkbox',
+  title: 'Components/Checkbox',
   decorators: [withKnobs],
 }
 
@@ -13,7 +13,7 @@ export const Default = () => {
   return (
     <Checkbox
       label={text('label', 'Checkbox With Label')}
-      onChange={() => setIsChecked(prevState => !prevState)}
+      onChange={() => setIsChecked((prevState) => !prevState)}
       checked={boolean('isChecked', !isChecked)}
     />
   )

@@ -6,7 +6,7 @@ import DatePicker from './index'
 import Container from '../Container'
 
 export default {
-  title: 'DatePicker',
+  title: 'Components/DatePicker',
 }
 
 export const DatePickerDefault = () => (

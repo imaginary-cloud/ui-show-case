@@ -15,10 +15,12 @@ import calendar, {
 
 import {
   CalendarHeader,
+  MonthAndYearContainer,
   ArrowContainer,
   ArrowLeft,
   CalendarMonth,
   ArrowRight,
+  ArrowDowUp,
   CalendarDay,
   HighlightedCalendarDate,
   HighlightedRangeCalendarDate,
@@ -26,14 +28,94 @@ import {
   CalendarDateStyled,
   CalendarContainer,
   CalendarGrid,
+  YearGrid,
 } from './style'
 
+function Year({
+  handleYear,
+  selectedYear,
+  MAX_YEAR_SELECTION,
+  MIN_YEAR_SELECTION,
+}) {
+  const ref = useRef()
+  const listItemRef = useRef()
+
+  const currentYear = new Date().getFullYear()
+  const [yearRange, setYearRange] = useState(
+    range(currentYear, currentYear + 50, +1),
+  )
+
+  useEffect(() => {
+    if (listItemRef.current) {
+      listItemRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [])
+
+  function range(start, stop, step) {
+    return Array.from(
+      { length: (stop - start) / step + 1 },
+      (_, i) => start + i * step,
+    ).reduce((acc, curr) => ({ ...acc, [curr]: curr }), {})
+  }
+
+  function onScroll() {
+    const scrollTop = ref.current && ref.current.scrollTop
+    const keys = Object.keys(yearRange)
+    const lastYear = Object.values(yearRange)[keys.length - 1]
+    const firstYear = Object.values(yearRange)[0]
+
+    if (scrollTop > 30 && lastYear < currentYear + MAX_YEAR_SELECTION) {
+      setYearRange((prevState) => ({
+        ...prevState,
+        ...range(lastYear, lastYear + 50, +1),
+      }))
+    }
+
+    if (scrollTop < 70 && firstYear > currentYear - MIN_YEAR_SELECTION) {
+      setYearRange((prevState) => ({
+        ...prevState,
+        ...range(firstYear, firstYear - MIN_YEAR_SELECTION, -1),
+      }))
+    }
+  }
+
+  return (
+    <YearGrid ref={ref} onScroll={onScroll}>
+      {Object.values(yearRange).map((year, index) => {
+        const props = {
+          index,
+          onClick: () => handleYear(year),
+          inMonth: true,
+          key: year,
+          ref: listItemRef,
+        }
+        const YearDate =
+          selectedYear === year ? HighlightedCalendarDate : CalendarDateStyled
+        return <YearDate {...props}>{year}</YearDate>
+      })}
+    </YearGrid>
+  )
+}
+
+Year.propTypes = {
+  handleYear: PropTypes.func,
+  selectedYear: PropTypes.number,
+  MAX_YEAR_SELECTION: PropTypes.number,
+  MIN_YEAR_SELECTION: PropTypes.number,
+}
+
+Year.defaultProps = {
+  MAX_YEAR_SELECTION: 50,
+  MIN_YEAR_SELECTION: 100,
+}
 function MonthAndYear({
   month,
   year,
   handlePrevious,
   clearPressureTimer,
   handleNext,
+  handleToggleYear,
+  yearToggle,
 }) {
   const monthName = Object.keys(CALENDAR_MONTHS)[
     Math.max(0, Math.min(month - 1, 11))
@@ -41,9 +123,12 @@ function MonthAndYear({
 
   return (
     <CalendarHeader>
-      <CalendarMonth>
-        {monthName} {year}
-      </CalendarMonth>
+      <MonthAndYearContainer onClick={() => handleToggleYear(year)}>
+        <CalendarMonth>
+          {monthName} {year}
+        </CalendarMonth>
+        <ArrowDowUp title="Choose Year" isOpen={yearToggle} />
+      </MonthAndYearContainer>
 
       <ArrowContainer>
         <ArrowLeft
@@ -64,9 +149,11 @@ function MonthAndYear({
 MonthAndYear.propTypes = {
   month: PropTypes.number,
   year: PropTypes.number,
+  yearToggle: PropTypes.bool,
   handlePrevious: PropTypes.func,
   clearPressureTimer: PropTypes.func,
   handleNext: PropTypes.func,
+  handleToggleYear: PropTypes.func,
 }
 
 function DayLabel({ day, index }) {
@@ -182,6 +269,8 @@ function Calendar({ date, onDateChanged, isRange }) {
     ...resolveState(date),
   })
 
+  const [yearToggle, setYearToggle] = useState(false)
+
   const [selectedRange, setSelectedRange] = useState({})
 
   const dayTimeout = useRef()
@@ -207,14 +296,14 @@ function Calendar({ date, onDateChanged, isRange }) {
     return calendar(calendarMonth, calendarYear)
   }
 
-  const gotoDate = d => evt => {
+  const gotoDate = (d) => (evt) => {
     if (evt) {
       evt.preventDefault()
     }
 
     const { current } = state
     if (!(current && isSameDay(date, current))) {
-      setState(prevState => ({ ...prevState, ...resolveState(d) }))
+      setState((prevState) => ({ ...prevState, ...resolveState(d) }))
     }
 
     if (typeof onDateChanged === 'function') {
@@ -222,7 +311,7 @@ function Calendar({ date, onDateChanged, isRange }) {
     }
   }
 
-  const startSelectRange = d => evt => {
+  const startSelectRange = (d) => (evt) => {
     if (evt) {
       evt.preventDefault()
     }
@@ -230,12 +319,12 @@ function Calendar({ date, onDateChanged, isRange }) {
     setSelectedRange({ start: d })
   }
 
-  const finishSelectRange = d => evt => {
+  const finishSelectRange = (d) => (evt) => {
     if (evt) {
       evt.preventDefault()
     }
 
-    setSelectedRange(prevState => ({ ...prevState, finish: d }))
+    setSelectedRange((prevState) => ({ ...prevState, finish: d }))
   }
 
   useEffect(() => {
@@ -245,22 +334,25 @@ function Calendar({ date, onDateChanged, isRange }) {
 
   function gotoPreviousMonth() {
     const { month, year } = state
-    setState(prevState => ({ ...prevState, ...getPreviousMonth(month, year) }))
+    setState((prevState) => ({
+      ...prevState,
+      ...getPreviousMonth(month, year),
+    }))
   }
 
   function gotoNextMonth() {
     const { month, year } = state
-    setState(prevState => ({ ...prevState, ...getNextMonth(month, year) }))
+    setState((prevState) => ({ ...prevState, ...getNextMonth(month, year) }))
   }
 
   function gotoPreviousYear() {
     const { year } = state
-    setState(prevState => ({ ...prevState, year: year - 1 }))
+    setState((prevState) => ({ ...prevState, year: year - 1 }))
   }
 
   function gotoNextYear() {
     const { year } = state
-    setState(prevState => ({ ...prevState, year: year + 1 }))
+    setState((prevState) => ({ ...prevState, year: year + 1 }))
   }
 
   function handlePressure(fn) {
@@ -311,7 +403,7 @@ function Calendar({ date, onDateChanged, isRange }) {
     const ms = tomorrow - now
 
     dayTimeout.current = setTimeout(() => {
-      setState(prevState => ({ ...prevState, today: new Date() }))
+      setState((prevState) => ({ ...prevState, today: new Date() }))
       clearDayTimeout()
     }, ms)
 
@@ -324,36 +416,51 @@ function Calendar({ date, onDateChanged, isRange }) {
   useEffect(() => {
     const { current } = state
     if (!(current && isSameDay(date, current))) {
-      setState(prevState => ({ ...prevState, ...resolveState(date) }))
+      setState((prevState) => ({ ...prevState, ...resolveState(date) }))
     }
   }, [date])
+
+  function handleYear(y) {
+    setState((prevState) => ({ ...prevState, year: y }))
+  }
 
   return (
     <CalendarContainer>
       <MonthAndYear
-        {...{ ...state, handlePrevious, clearPressureTimer, handleNext }}
+        {...{
+          ...state,
+          handlePrevious,
+          clearPressureTimer,
+          handleNext,
+          yearToggle,
+          handleToggleYear: () => setYearToggle((prev) => !prev),
+        }}
       />
 
-      <CalendarGrid>
-        {Object.keys(WEEK_DAYS).map((day, index) => (
-          <DayLabel key={String(day)} {...{ day, index }} />
-        ))}
-        {getCalendarDates().map((fullDate, index) => (
-          <CalendarDate
-            key={String(fullDate)}
-            {...{
-              fullDate,
-              index,
-              ...state,
-              gotoDate,
-              startSelectRange,
-              selectedRange,
-              finishSelectRange,
-              isRange,
-            }}
-          />
-        ))}
-      </CalendarGrid>
+      {yearToggle ? (
+        <Year {...{ handleYear, selectedYear: state.year, yearToggle }} />
+      ) : (
+        <CalendarGrid>
+          {Object.keys(WEEK_DAYS).map((day, index) => (
+            <DayLabel key={String(day)} {...{ day, index }} />
+          ))}
+          {getCalendarDates().map((fullDate, index) => (
+            <CalendarDate
+              key={String(fullDate)}
+              {...{
+                fullDate,
+                index,
+                ...state,
+                gotoDate,
+                startSelectRange,
+                selectedRange,
+                finishSelectRange,
+                isRange,
+              }}
+            />
+          ))}
+        </CalendarGrid>
+      )}
     </CalendarContainer>
   )
 }

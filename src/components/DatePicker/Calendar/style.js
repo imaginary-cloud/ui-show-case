@@ -35,6 +35,7 @@ export const CalendarContainer = styled.div`
   border-color: ${({ theme }) => theme.primary};
   overflow: hidden;
   padding: 10px;
+  background: #fff;
 `
 
 export const CalendarHeader = styled.div`
@@ -101,8 +102,6 @@ export const CalendarCell = styled.div.attrs(
 `
 
 export const CalendarDay = styled(CalendarCell)`
-  font-family: Inter;
-  font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 26px;

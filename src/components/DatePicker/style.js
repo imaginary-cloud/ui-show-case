@@ -1,8 +1,31 @@
 import styled, { keyframes } from 'styled-components'
 
+const calendar = `
+<svg width="18" height="20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3.568 7.023H0v3.568h3.568V7.023zM8.326 7.023H4.758v3.568h3.568V7.023zM13.163 7.023H9.595v3.568h3.568V7.023zM15.542 2.344V.6h-3.569v1.744H5.947V.6H2.38v1.744H0v3.569h17.92V2.344h-2.378zM18 7.023h-3.568v3.568H18V7.023zM3.568 11.463H0v3.569h3.568v-3.569zM8.326 11.463H4.758v3.569h3.568v-3.569zM13.163 11.463H9.595v3.569h3.568v-3.569zM18 11.463h-3.568v3.569H18v-3.569zM3.568 15.904H0v3.568h3.568v-3.568zM8.326 15.904H4.758v3.568h3.568v-3.568zM13.163 15.904H9.595v3.568h3.568v-3.568zM18 15.904h-3.568v3.568H18v-3.568z" fill="#161616"/></svg>
+`
+
 export const Container = styled.div`
   width: 100%;
+  min-width: 378px;
   position: relative;
+`
+
+export const CalendarIcon = styled.div`
+   background-image: url('data:image/svg+xml;base64,${btoa(calendar)}');
+  height: 15px;
+  width: 10px;
+  outline: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: none;
+  background-color: transparent;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.4s;
+
+  position: absolute;
+  right: 5px;
+  top: 3px;
 `
 
 export const DatePickerFormGroup = styled.div`

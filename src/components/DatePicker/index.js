@@ -13,9 +13,17 @@ import {
   DatePickerDropdown,
   DatePickerDropdownMenu,
   DatePickerDropdownToggle,
+  CalendarIcon,
 } from './style'
 
-function DatePicker({ label, value, onDateChanged, placeholder, isRange }) {
+function DatePicker({
+  label,
+  value,
+  onDateChanged,
+  placeholder,
+  isRange,
+  disabled,
+}) {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
   const [currentDate, setCurrentDate] = useState()
 
@@ -64,11 +72,14 @@ function DatePicker({ label, value, onDateChanged, placeholder, isRange }) {
           readOnly="readonly"
           placeholder={isCalendarOpen && !currentDate ? placeholder : ''}
         />
+        <CalendarIcon />
       </DatePickerFormGroup>
 
       <DatePickerDropdown>
         <DatePickerDropdownToggle
-          onClick={() => setIsCalendarOpen((prevState) => !prevState)}
+          onClick={() =>
+            !disabled && setIsCalendarOpen((prevState) => !prevState)
+          }
         >
           <span className="sr-only">Toggle Dropdown</span>
         </DatePickerDropdownToggle>

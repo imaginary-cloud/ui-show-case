@@ -1,7 +1,7 @@
 ![gh-pages](https://github.com/imaginary-cloud/ui-show-case/workflows/gh-pages/badge.svg)
 
 ## UI SHOWCASE
-A showcase of UI components build with **React** and **styled-components**.
+A showcase of UI components built with **React** and **styled-components**.
 
 ## Purpose
 Provide components used in the day to day development. The main purpose is to avoid the need to download UI libraries with a very opinionated style and providing one catalog of components to reach when needed.

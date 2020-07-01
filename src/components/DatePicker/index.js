@@ -16,7 +16,7 @@ import {
 } from './style'
 
 function DatePicker({ label, value, onDateChanged, placeholder, isRange }) {
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+  const [isCalendarOpen, setIsCalendarOpen] = useState(true)
   const [currentDate, setCurrentDate] = useState()
 
   useEffect(() => {

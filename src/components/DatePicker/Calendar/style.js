@@ -23,6 +23,10 @@ export const ArrowRight = styled(Arrow)`
   transform: rotate(-180deg);
 `
 
+export const ArrowDowUp = styled(Arrow)`
+  transform: rotate(90deg);
+`
+
 export const CalendarContainer = styled.div`
   font-size: 5px;
   border-width: ${({ theme }) => theme.defaultBorderHeight};
@@ -38,6 +42,12 @@ export const CalendarHeader = styled.div`
   justify-content: space-between;
 `
 
+export const MonthAndYearContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`
+
 export const ArrowContainer = styled(CalendarHeader)`
   display: flex;
   align-items: center;
@@ -48,6 +58,15 @@ export const ArrowContainer = styled(CalendarHeader)`
 export const CalendarGrid = styled.div`
   display: grid;
   grid-template: repeat(7, auto) / repeat(7, auto);
+`
+
+export const YearGrid = styled(CalendarGrid)`
+  display: grid;
+  grid-template: repeat(7, auto) / repeat(7, auto);
+  max-height: 247px;
+  overflow: hidden;
+  overflow-y: auto;
+  padding-top: 50px;
 `
 
 export const CalendarMonth = styled.h1`
@@ -76,7 +95,7 @@ export const CalendarCell = styled.div.attrs(
 
   padding: 10px;
   user-select: none;
-  grid-column: ${props => (props.index % 7) + 1} / span 1;
+  grid-column: ${(props) => (props.index % 7) + 1} / span 1;
 `
 
 export const CalendarDay = styled(CalendarCell)`
@@ -92,9 +111,9 @@ export const CalendarDateStyled = styled(CalendarCell)`
   font-weight: normal;
   font-size: 1em;
   cursor: pointer;
-  opacity: ${props => (props.inMonth ? `1` : `0.4`)};
+  opacity: ${(props) => (props.inMonth ? `1` : `0.4`)};
   color: ${({ theme }) => theme.primary};
-  grid-row: ${props => Math.floor(props.index / 7) + 2} / span 1;
+  grid-row: ${(props) => Math.floor(props.index / 7) + 2} / span 1;
   transition: all 0.4s ease-out;
   :hover {
     background: ${({ theme }) => theme.lightBackground};

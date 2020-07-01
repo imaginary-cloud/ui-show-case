@@ -31,7 +31,12 @@ import {
   YearGrid,
 } from './style'
 
-function Year({ handleYear, MAX_YEAR_SELECTION, MIN_YEAR_SELECTION }) {
+function Year({
+  handleYear,
+  selectedYear,
+  MAX_YEAR_SELECTION,
+  MIN_YEAR_SELECTION,
+}) {
   const ref = useRef()
   const listItemRef = useRef()
 
@@ -39,7 +44,6 @@ function Year({ handleYear, MAX_YEAR_SELECTION, MIN_YEAR_SELECTION }) {
   const [yearRange, setYearRange] = useState(
     range(currentYear, currentYear + 50, +1),
   )
-  const [selectedYear, setSelectedYear] = useState()
 
   useEffect(() => {
     if (listItemRef.current) {
@@ -75,19 +79,18 @@ function Year({ handleYear, MAX_YEAR_SELECTION, MIN_YEAR_SELECTION }) {
     }
   }
 
-  const YearDate =
-    selectedYear === currentYear ? HighlightedCalendarDate : CalendarDateStyled
-
   return (
     <YearGrid ref={ref} onScroll={onScroll}>
       {Object.values(yearRange).map((year, index) => {
         const props = {
           index,
-          onClick: handleYear,
+          onClick: () => handleYear(year),
           inMonth: true,
           key: year,
           ref: listItemRef,
         }
+        const YearDate =
+          selectedYear === year ? HighlightedCalendarDate : CalendarDateStyled
         return <YearDate {...props}>{year}</YearDate>
       })}
     </YearGrid>
@@ -96,6 +99,7 @@ function Year({ handleYear, MAX_YEAR_SELECTION, MIN_YEAR_SELECTION }) {
 
 Year.propTypes = {
   handleYear: PropTypes.func,
+  selectedYear: PropTypes.number,
   MAX_YEAR_SELECTION: PropTypes.number,
   MIN_YEAR_SELECTION: PropTypes.number,
 }
@@ -417,11 +421,9 @@ function Calendar({ date, onDateChanged, isRange }) {
     }
   }, [date])
 
-  // function handleToggleYear(_, y) {
-  //   setYearToggle(prev => !prev)
-
-  //   console.log(y)
-  // }
+  function handleYear(y) {
+    setState((prevState) => ({ ...prevState, year: y }))
+  }
 
   return (
     <CalendarContainer>
@@ -436,7 +438,7 @@ function Calendar({ date, onDateChanged, isRange }) {
       />
 
       {yearToggle ? (
-        <Year />
+        <Year {...{ handleYear, selectedYear: state.year }} />
       ) : (
         <CalendarGrid>
           {Object.keys(WEEK_DAYS).map((day, index) => (

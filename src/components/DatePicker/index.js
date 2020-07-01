@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import { getDateISO, isDate } from './helpers/calendar'
 
-import Calendar from './Calendar'
+import Calendar from '../Calendar'
 
 import {
   Container,

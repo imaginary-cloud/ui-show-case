@@ -11,7 +11,7 @@ import calendar, {
   getPreviousMonth,
   WEEK_DAYS,
   CALENDAR_MONTHS,
-} from '../helpers/calendar'
+} from '../DatePicker/helpers/calendar'
 
 import {
   CalendarHeader,

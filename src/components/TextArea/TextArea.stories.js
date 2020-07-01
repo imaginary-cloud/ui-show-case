@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { text } from '@storybook/addon-knobs'
 
-import Container from '../Container'
+// import Container from '../Container'
 
 import Input from './index'
 
@@ -10,67 +10,57 @@ export default {
 }
 
 export const Empty = () => (
-  <Container>
-    <Input
-      label={text('label', 'Comment(s)')}
-      placeholder={text('placeholder', 'Insert text here')}
-      id="empty"
-    />
-  </Container>
+  <Input
+    label={text('label', 'Comment(s)')}
+    placeholder={text('placeholder', 'Insert text here')}
+    id="empty"
+  />
 )
 
 export const Focused = () => (
-  <Container>
-    <Input
-      label={text('label', 'Comment(s)')}
-      placeholder={text('placeholder', 'Insert text here')}
-      focused
-      id="focused"
-    />
-  </Container>
+  <Input
+    label={text('label', 'Comment(s)')}
+    placeholder={text('placeholder', 'Insert text here')}
+    focused
+    id="focused"
+  />
 )
 
 export const Filled = () => {
   const [value, setValue] = useState('I wold like to shar')
   return (
-    <Container>
-      <Input
-        label={text('label', 'Comment(s)')}
-        placeholder={text('placeholder', 'Insert text here')}
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-        id="filled"
-        type="text"
-      />
-    </Container>
+    <Input
+      label={text('label', 'Comment(s)')}
+      placeholder={text('placeholder', 'Insert text here')}
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
+      id="filled"
+      type="text"
+    />
   )
 }
 
 export const Disabled = () => (
-  <Container>
-    <Input
-      id="disabled"
-      label={text('label', 'Comment(s)')}
-      placeholder={text('placeholder', 'Insert text here')}
-      disabled
-    />
-  </Container>
+  <Input
+    id="disabled"
+    label={text('label', 'Comment(s)')}
+    placeholder={text('placeholder', 'Insert text here')}
+    disabled
+  />
 )
 
 export const Error = () => {
   const [value, setValue] = useState('')
   return (
-    <Container>
-      <Input
-        label={text('label', 'Comment(s)')}
-        placeholder={text('placeholder', 'Insert text here')}
-        value={value}
-        onChange={(event) => setValue(event.target.value)}
-        id="error"
-        type="text"
-        helpText={text('error message', 'Error message')}
-        hasError
-      />
-    </Container>
+    <Input
+      label={text('label', 'Comment(s)')}
+      placeholder={text('placeholder', 'Insert text here')}
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
+      id="error"
+      type="text"
+      helpText={text('error message', 'Error message')}
+      hasError
+    />
   )
 }

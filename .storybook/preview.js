@@ -1,5 +1,5 @@
 import React from 'react'
-import { ThemeProvider } from 'styled-components'
+import styled, { ThemeProvider } from 'styled-components'
 import { addDecorator, addParameters } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 
@@ -26,3 +26,23 @@ addParameters({
         showRoots: true
     },
 });
+
+const Story = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #F6F4F5;
+
+  .sbdocs & {
+    min-height: auto;
+  }
+`;
+
+const withStoryStyles = storyFn => {
+  return <Story>{storyFn()}</Story>;
+};
+
+addDecorator(withStoryStyles);

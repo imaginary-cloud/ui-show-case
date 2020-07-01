@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 
 import Dropdown from './index'
-import Container from '../Container'
 
 const INITIAL_VALUE = [
   { value: 'grapefruit', label: 'Grapefruit' },
@@ -22,21 +21,17 @@ export const DropdownDefault = () => {
   }
 
   return (
-    <Container style={{ marginTop: '10px', height: '250px' }}>
-      <Dropdown
-        selectLabel="Which is your favorite flavor?"
-        items={INITIAL_VALUE}
-        onChange={handleChange}
-        selected={value}
-      />
-    </Container>
+    <Dropdown
+      selectLabel="Which is your favorite flavor?"
+      items={INITIAL_VALUE}
+      onChange={handleChange}
+      selected={value}
+    />
   )
 }
 
 export const DropdownDisabled = () => (
-  <Container style={{ marginTop: '10px', height: '250px' }}>
-    <Dropdown selectLabel="Which is your favorite flavor?" disabled />
-  </Container>
+  <Dropdown selectLabel="Which is your favorite flavor?" disabled />
 )
 
 export const DropdownError = () => {
@@ -47,14 +42,12 @@ export const DropdownError = () => {
   }
 
   return (
-    <Container style={{ marginTop: '10px', height: '250px' }}>
-      <Dropdown
-        selectLabel="Which is your favorite flavor?"
-        items={INITIAL_VALUE}
-        onChange={handleChange}
-        selected={value}
-        errorMsg="Name is required"
-      />
-    </Container>
+    <Dropdown
+      selectLabel="Which is your favorite flavor?"
+      items={INITIAL_VALUE}
+      onChange={handleChange}
+      selected={value}
+      errorMsg="Name is required"
+    />
   )
 }

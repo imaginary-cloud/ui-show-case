@@ -18,9 +18,31 @@ export const Arrow = styled.span`
   position: absolute;
   width: 0;
   height: 0;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    border-style: solid;
+  }
+
+  &:before {
+    bottom: calc(100% + 18px);
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px 12.5px 0 12.5px;
+    border-color: ${({ theme }) => theme.primary} transparent transparent
+      transparent;
+  }
+  &:after {
+    bottom: 21.5px;
+    transform: translateX(-50%);
+    border-width: 9px 11.5px 0 11.5px;
+    border-color: #ffffff transparent transparent transparent;
+  }
 `
 
-export const Content = styled.span`
+export const Content = styled.div`
   color: #ffffff;
   position: absolute;
   z-index: 10;
@@ -29,18 +51,8 @@ export const Content = styled.span`
   cursor: default;
   border-radius: 3px;
   white-space: nowrap;
-  font-family: monospace;
-  background-color: ${({ backgroundColor }) => backgroundColor};
   box-shadow: 0 0 0.3rem rgba(0, 0, 0, 0.16);
   animation: ${fadeIn} ease-in-out 0.65s;
-
-  &.sm {
-    max-width: 23rem;
-  }
-
-  &.md {
-    max-width: 40rem;
-  }
 
   &.top {
     bottom: calc(100% + 18px);
@@ -48,32 +60,27 @@ export const Content = styled.span`
     transform: translateX(-50%);
 
     ${Arrow} {
-      bottom: -8px;
-      left: calc(50% - 10px);
-      border-right: 10px solid transparent;
-      border-top: 10px solid ${({ backgroundColor }) => backgroundColor};
-      border-left: 10px solid transparent;
+      &.top {
+        bottom: -27px;
+        /* bottom: -50%; */
+        left: 50%;
+        transform: translateY(-50%);
+      }
     }
   }
 
   &.right,
   &.left {
-    top: 50%;
-    transform: translateY(-50%);
-
-    ${Arrow} {
-      top: calc(50% - 10px);
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;
-    }
+    top: calc(100% - 40px);
   }
 
   &.right {
     left: calc(100% + 18px);
 
     ${Arrow} {
-      left: -8px;
-      border-right: 10px solid ${({ backgroundColor }) => backgroundColor};
+      transform: rotate(90deg) translateY(50%);
+      left: -28.5px;
+      top: 50%;
     }
   }
 
@@ -81,22 +88,31 @@ export const Content = styled.span`
     right: calc(100% + 18px);
 
     ${Arrow} {
-      right: -8px;
-      border-left: 10px solid ${({ backgroundColor }) => backgroundColor};
+      transform: rotate(-90deg) translateY(50%);
+      right: -28.5px;
+      top: 50%;
     }
   }
 
   &.bottom {
     top: calc(100% + 18px);
-    left: 50%;
+    left: 100%;
     transform: translateX(-50%);
 
     ${Arrow} {
-      top: -8px;
       left: calc(50% - 10px);
-      border-right: 10px solid transparent;
-      border-bottom: 10px solid ${({ backgroundColor }) => backgroundColor};
-      border-left: 10px solid transparent;
+      transform: rotate(178deg);
+      top: -28.5px;
     }
   }
+`
+
+export const Toggle = styled.div`
+    background: red;
+    width: 50px;
+    height: 80px;
+    position: absolute;
+    left: -10px;
+    top: 0;
+}
 `

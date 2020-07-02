@@ -4,27 +4,33 @@ import PropTypes from 'prop-types'
 import { Container, Content, Arrow } from './style'
 
 const propTypes = {
-  title: PropTypes.string.isRequired,
   position: PropTypes.string,
-  backgroundColor: PropTypes.string,
+  style: PropTypes.object,
   children: PropTypes.node.isRequired,
+  tooltipContent: PropTypes.node.isRequired,
 }
 
-const Tooltip = ({ title, position, backgroundColor, children }) => {
+const Tooltip = ({ tooltipContent, position, style, children }) => {
   const [isVisible, setIsVisible] = useState(false)
+
+  function handleMouseLeave() {
+    setTimeout(() => {
+      setIsVisible(false)
+    }, 4000)
+  }
 
   return (
     <Container
       onMouseEnter={() => setIsVisible(true)}
-      onMouseLeave={() => setIsVisible(false)}
+      onMouseLeave={handleMouseLeave}
       role="button"
       tabIndex="0"
     >
       <div>{children}</div>
       {isVisible && (
-        <Content className={position} backgroundColor={backgroundColor}>
-          <Arrow />
-          {title}
+        <Content className={position} {...{ style }}>
+          <Arrow className={position} />
+          {tooltipContent}
         </Content>
       )}
     </Container>
@@ -33,7 +39,6 @@ const Tooltip = ({ title, position, backgroundColor, children }) => {
 
 Tooltip.defaultProps = {
   position: 'right',
-  backgroundColor: '#212529',
 }
 
 Tooltip.propTypes = propTypes

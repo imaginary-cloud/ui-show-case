@@ -8,15 +8,10 @@ function Button({ children, disabled, outline, link }) {
 }
 
 Button.propTypes = {
-  children: PropTypes.object,
+  children: PropTypes.node,
   disabled: PropTypes.bool,
   outline: PropTypes.bool,
   link: PropTypes.bool,
 }
-
-// Button.defaultProps = {
-//   backgroundColor: 'transparent',
-//   borderColor: 'transparent',
-// }
 
 export default Button

@@ -4,7 +4,7 @@ export const Container = styled.button.attrs(({ outline, link }) => ({
   outline,
   link,
 }))`
-  width: 175px;
+  width: ${({ link }) => (link ? 'auto' : '175px')};
   height: 50px;
   outline: none;
   transition: all 0.3s;

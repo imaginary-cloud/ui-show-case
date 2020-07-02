@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 
 import { Container } from './style'
 
-function Header({ children }) {
+function Title({ children }) {
   return <Container>{children}</Container>
 }
 
-Header.propTypes = {
-  children: PropTypes.object,
+Title.propTypes = {
+  children: PropTypes.node,
 }
 
-export default Header
+export default Title

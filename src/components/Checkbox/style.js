@@ -47,11 +47,11 @@ export const Container = styled.div`
     background-image: url('data:image/svg+xml;utf8,${checkImage}');
     background-position: center;
     background-repeat: no-repeat;
-    height: 18px;
-    width: 18px;
+    height: 20px;
+    width: 20px;
 
     position: absolute;
-    left: 2px;
+    left: 0;
     top: 50%;
     transform: translateY(-50%);
     transition: opacity 0.2s ease-in-out;

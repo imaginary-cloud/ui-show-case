@@ -1,6 +1,10 @@
 import React, { useRef } from 'react'
 import PropTypes from 'prop-types'
 
+import Button from '../Button'
+import Card from '../Card'
+import Title from '../Title'
+
 import withToastProvider from './withToastProvider'
 
 import { useToast } from './index'
@@ -10,9 +14,9 @@ export default {
 }
 
 const ToastInside = ({ counter }) => (
-  <div>
-    <h1>{counter}</h1>
-  </div>
+  <Card>
+    <Title>{counter}</Title>
+  </Card>
 )
 
 ToastInside.propTypes = {
@@ -29,23 +33,11 @@ function ToastButton() {
     toast.add(<ToastInside counter={counterRef.current} />)
   }
 
-  return (
-    <button type="button" onClick={showToast}>
-      Show me a toast
-    </button>
-  )
+  return <Button onClick={showToast}>Show me a toast</Button>
 }
 
 function App() {
-  return (
-    <div>
-      <p>
-        The <strong>Toast Provider</strong> should be registred on the main
-        entry of the App.
-      </p>
-      <ToastButton />
-    </div>
-  )
+  return <ToastButton />
 }
 
 const AppWithToastProvider = withToastProvider(App)

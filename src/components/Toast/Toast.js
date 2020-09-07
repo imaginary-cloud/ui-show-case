@@ -8,12 +8,12 @@ function Toast({ children, handleRemove }) {
 
   removeRef.current = handleRemove
 
-  useEffect(() => {
-    const duration = 5000
-    const id = setTimeout(() => removeRef.current(), duration)
+  // useEffect(() => {
+  //   const duration = 5000
+  //   const id = setTimeout(() => removeRef.current(), duration)
 
-    return () => clearTimeout(id)
-  }, [])
+  //   return () => clearTimeout(id)
+  // }, [])
 
   return (
     <Container>

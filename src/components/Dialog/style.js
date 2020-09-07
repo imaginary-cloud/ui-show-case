@@ -27,7 +27,8 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   z-index: 100;
-  background: white;
+  background-color: ${({ theme }) => theme.blue};
+
   position: relative;
   margin: 1.75rem auto;
   border-radius: 3px;
@@ -48,4 +49,10 @@ export const Close = styled.button`
   opacity: 0.3;
   cursor: pointer;
   border: none;
+`
+
+export const DialogContent = styled.div`
+  * {
+    margin: 10px;
+  }
 `

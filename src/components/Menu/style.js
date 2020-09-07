@@ -6,6 +6,7 @@ export const Ul = styled.ul`
   list-style: none;
   display: flex;
   justify-content: space-around;
+  cursor: pointer;
 `
 
 export const Li = styled.li`
@@ -13,6 +14,7 @@ export const Li = styled.li`
   border-bottom: 1.5px solid transparent;
   transition: 0.3s;
   position: relative;
+  cursor: pointer;
 
   font-weight: 300;
   font-size: 30px;
@@ -33,6 +35,7 @@ export const Container = styled.ul`
   list-style: none;
   padding: 0;
   display: none;
+  cursor: pointer;
 `
 
 export const Content = styled.li`
@@ -40,6 +43,7 @@ export const Content = styled.li`
   line-height: 32px;
   color: ${({ theme }) => theme.primary};
   padding: 6px 0;
+  cursor: pointer;
   transition: 0.3s;
   &:hover {
     color: ${({ theme }) => theme.accentColor};
